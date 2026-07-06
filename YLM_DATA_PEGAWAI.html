@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Informasi Data Pegawai - Yayasan Lembaga Miryam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .bg-ylm-blue { background-color: #1e40af; }
+    .text-ylm-blue { color: #1e40af; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+
+   
+    <div id="form-calon-page" class="hidden min-h-screen flex items-center justify-center p-4 py-10">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-4xl border-t-8 border-blue-700">
+      
+      <div class="flex items-center justify-between mb-6 border-b pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-800">Formulir Pendaftaran</h2>
+          <p class="text-sm text-slate-500">Isi data diri Anda sebagai Calon Pegawai YLM</p>
+        </div>
+        <button onclick="tampilkanLoginSaja()" class="text-slate-400 hover:text-red-600 transition">
+          <i class="fa fa-times text-2xl"></i>
+        </button>
+      </div>
+
+      <form id="form-register-calon" onsubmit="submitCalonPegawai(event)">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          
+          <div class="space-y-4">
+            <h3 class="font-bold text-ylm-blue border-b pb-1"><i class="fa fa-user mr-2"></i>Data Diri Utama</h3>
+            
+            <div>
+              <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
+              <input type="text" id="calon_nama" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Tempat Lahir</label>
+                <input type="text" id="calon_tempat_lahir" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Tanggal Lahir</label>
+                <input type="date" id="calon_tgl_lahir" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Jenis Kelamin</label>
+                <select id="calon_jk" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="" disabled selected>Pilih...</option>
+                  <option value="L">Laki-Laki</option>
+                  <option value="P">Perempuan</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Agama</label>
+                <select id="calon_agama" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="Katolik">Katolik</option>
+                  <option value="Kristen">Kristen</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Buddha">Buddha</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-1">Alamat Lengkap</label>
+              <textarea id="calon_alamat" rows="2" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium mb-1">Nomor HP/WA</label>
+              <input type="tel" id="calon_nohp" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+          </div>
+
+
+          
+          <div class="space-y-4">
+            <h3 class="font-bold text-ylm-blue border-b pb-1"><i class="fa fa-briefcase mr-2"></i>Data Pekerjaan & Akun</h3>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Pendidikan</label>
+                <input type="text" id="calon_pendidikan" placeholder="Contoh: S1" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Jurusan</label>
+                <input type="text" id="calon_jurusan" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Pekerjaan</label>
+                <input type="text" id="calon_pekerjaan" placeholder="Contoh: Guru" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Unit Kerja</label>
+                <input type="text" id="calon_unit" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Status K/TK</label>
+                <select id="calon_ktk" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="TK">Tidak Kawin (TK)</option>
+                  <option value="K">Kawin (K)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Jumlah Anak</label>
+                <input type="number" id="calon_jml_anak" value="0" min="0" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+              </div>
+            </div>
+            
+            <div class="space-y-1">
+                <label class="block text-xs font-semibold text-slate-500">Unggah Pas Foto Formal</label>
+                <input type="file" id="calon_foto" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                <p class="text-[10px] text-slate-400">Format: JPG/PNG, Maksimal 2MB. Disarankan pas foto formal.</p>
+            </div>
+
+            <div class="mt-4 p-4 bg-slate-50 rounded-lg border">
+              <h4 class="text-sm font-bold mb-2 text-slate-700">Buat Kredensial Login</h4>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-medium mb-1">Username Baru</label>
+                  <input type="text" id="calon_username" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-medium mb-1">Password Baru</label>
+                  <input type="password" id="calon_password" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="border-t pt-4 flex justify-end space-x-4">
+          <button type="button" onclick="tampilkanLoginSaja()" class="px-6 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition">Batal</button>
+          <button type="submit" id="btn-submit-calon" class="px-6 py-2 bg-ylm-blue hover:bg-blue-800 text-white rounded-lg font-semibold shadow transition flex items-center">
+            <i class="fa fa-paper-plane mr-2"></i> Kirim Pendaftaran</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  
+
+  
+  <div id="login-page" class="flex items-center justify-center min-h-screen px-4">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border-t-8 border-blue-700">
+      <div class="text-center mb-8">
+        <div class="w-24 h-24 bg-gradient-to-tr from-blue-700 to-sky-400 rounded-full mx-auto flex items-center justify-center text-white text-3xl font-bold shadow-md mb-3">
+          YLM
+        </div>
+        <h2 class="text-2xl font-bold text-slate-800">Sistem Data Pegawai</h2>
+        <p class="text-sm text-slate-500">Yayasan Lembaga Miryam</p>
+      </div>
+
+      <form id="form-login" onsubmit="executeLogin(event)">
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Masuk Sebagai</label>
+          <select id="login-role" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            <option value="Pegawai">Pegawai</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Username</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa fa-user"></i></span>
+            <input type="text" id="login-username" required class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Masukkan username">
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-1">Password</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa fa-lock"></i></span>
+            <input type="password" id="login-password" required class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="******">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-ylm-blue hover:bg-blue-800 text-white py-2.5 rounded-lg font-semibold shadow transition duration-200">MASUK</button>
+      </form>
+
+      <div class="text-center mt-8 pt-4 border-t border-slate-100">
+        <button onclick="showPage('form-calon-page')" class="text-sm text-blue-600 hover:text-blue-800 font-medium transition">
+          Belum Terdata Sebagai Pegawai? <br><span class="underline">Isi Data Sebagai Pegawai YLM</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="admin-dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
+    <div class="w-full md:w-64 bg-ylm-blue text-white p-5 shadow-md flex flex-col justify-between">
+      <div>
+        <div class="flex items-center space-x-3 mb-8">
+          <div class="w-10 h-10 bg-white text-ylm-blue rounded-full flex items-center justify-center font-bold">Y</div>
+          <div>
+            <h4 class="font-bold text-sm leading-tight">Admin Portal</h4>
+            <span class="text-xs text-blue-200">Yayasan Lembaga Miryam</span>
+          </div>
+        </div>
+        <nav class="space-y-1" id="admin-tabs">
+          <button onclick="switchAdminTab('infografis')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition flex items-center"><i class="fa fa-chart-pie mr-3 w-5"></i> Infografis</button>
+          <button onclick="switchAdminTab('data-pegawai')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition flex items-center"><i class="fa fa-users mr-3 w-5"></i> Data Pegawai</button>
+          <button onclick="switchAdminTab('data-keluarga')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition flex items-center"><i class="fa fa-heart mr-3 w-5"></i> Data Keluarga</button>
+          <button onclick="switchAdminTab('kelola-pegawai')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition flex items-center"><i class="fa fa-user-gear mr-3 w-5"></i> Kelola Pegawai</button>
+          <button onclick="switchAdminTab('validasi-pegawai')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition flex items-center"><i class="fa fa-user-check mr-3 w-5"></i> Validasi Pegawai</button>
+          <button onclick="switchAdminTab('pensiunan')" class="w-full text-left px-4 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition flex items-center"><i class="fa fa-id-card-clip mr-3 w-5"></i> Pensiunan</button>
+        </nav>
+      </div>
+      <button onclick="logout()" class="mt-8 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg text-sm font-medium transition flex items-center justify-center"><i class="fa fa-sign-out mr-2"></i> Keluar</button>
+    </div>
+
+    <div class="flex-1 p-6 md:p-10 overflow-x-hidden">
+      <div id="tab-infografis" class="admin-tab-content">
+        <h2 class="text-2xl font-bold mb-6">Dashboard Ringkasan</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-600 flex items-center justify-between">
+            <div><p class="text-sm text-slate-500 font-medium">Total Pegawai</p><h3 class="text-3xl font-bold mt-1" id="count-total">0</h3></div>
+            <i class="fa fa-users text-blue-200 text-4xl"></i>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500 flex items-center justify-between">
+            <div><p class="text-sm text-slate-500 font-medium">Laki-Laki</p><h3 class="text-3xl font-bold mt-1" id="count-pria">0</h3></div>
+            <i class="fa fa-mars text-emerald-200 text-4xl"></i>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-pink-500 flex items-center justify-between">
+            <div><p class="text-sm text-slate-500 font-medium">Perempuan</p><h3 class="text-3xl font-bold mt-1" id="count-wanita">0</h3></div>
+            <i class="fa fa-venus text-pink-200 text-4xl"></i>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-4 rounded-xl shadow-sm"><h4 class="text-sm font-semibold text-center mb-2">Distribusi Status</h4><canvas id="chartStatus"></canvas></div>
+          <div class="bg-white p-4 rounded-xl shadow-sm"><h4 class="text-sm font-semibold text-center mb-2">Unit Kerja</h4><canvas id="chartUnit"></canvas></div>
+          <div class="bg-white p-4 rounded-xl shadow-sm"><h4 class="text-sm font-semibold text-center mb-2">Pekerjaan</h4><canvas id="chartPekerjaan"></canvas></div>
+        </div>
+      </div>
+
+      <div id="tab-data-pegawai" class="admin-tab-content hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+          <h2 class="text-2xl font-bold">Data Pegawai Aktif</h2>
+          <input type="text" onkeyup="searchTable('table-pegawai-rows', this.value)" class="mt-2 sm:mt-0 px-4 py-2 border rounded-lg text-sm w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Pegawai...">
+        </div>
+        <div class="bg-white rounded-xl shadow-sm overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-100 border-b text-slate-600">
+                <th class="p-4">Aksi</th><th class="p-4">NIPY</th><th class="p-4">Nama Pegawai</th><th class="p-4">JK</th><th class="p-4">Unit Kerja</th><th class="p-4">Jabatan</th>
+              </tr>
+            </thead>
+            <tbody id="table-pegawai-rows"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-validasi-pegawai" class="admin-tab-content hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+          <h2 class="text-2xl font-bold">Validasi Calon Pegawai</h2>
+          <input type="text" onkeyup="searchTable('table-calon-rows', this.value)" class="mt-2 sm:mt-0 px-4 py-2 border rounded-lg text-sm w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari calon...">
+        </div>
+        <div class="bg-white rounded-xl shadow-sm overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-100 border-b text-slate-600">
+                <th class="p-4">Foto</th>
+                <th class="p-4">Nama Pegawai</th>
+                <th class="p-4">Status</th>
+                <th class="p-4">Unit Kerja</th>
+                <th class="p-4">Pekerjaan</th>
+                <th class="p-4 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="table-calon-rows">
+              </tbody>
+          </table>
+        </div>
+      </div>
+      
+      </div>
+  </div>
+
+
+  <div id="pegawai-dashboard" class="hidden min-h-screen flex flex-col">
+    <header class="bg-ylm-blue text-white px-6 py-4 flex justify-between items-center shadow-md">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-white text-ylm-blue rounded-full flex items-center justify-center font-bold">P</div>
+        <span class="font-bold tracking-wide" id="pegawai-navbar-name">Nama Pegawai</span>
+      </div>
+      <button onclick="logout()" class="text-sm bg-blue-800 hover:bg-blue-900 px-4 py-1.5 rounded-lg transition"><i class="fa fa-sign-out"></i></button>
+    </header>
+
+    <div class="bg-white border-b overflow-x-auto flex px-6 space-x-6" id="pegawai-tabs-navigation">
+      <button onclick="switchPegawaiTab('profil-saya')" class="py-3 font-semibold border-b-2 border-blue-600 text-blue-600">Profil Saya</button>
+      
+      <button onclick="switchPegawaiTab('kinerja')" class="py-3 font-semibold text-slate-500 hover:text-blue-600">Kinerja Pegawai</button>
+      
+      <button id="tab-riwayat-kerja" onclick="switchPegawaiTab('riwayat-kerja')" class="tab-link-guru hidden py-3 font-semibold text-slate-500 hover:text-blue-600">Riwayat Kerja</button>
+      
+      <button id="tab-prestasi" onclick="switchPegawaiTab('prestasi')" class="tab-link-guru hidden py-3 font-semibold text-slate-500 hover:text-blue-600">Prestasi</button>
+      
+      <button id="tab-pengembangan" onclick="switchPegawaiTab('pengembangan')" class="tab-link-guru hidden py-3 font-semibold text-slate-500 hover:text-blue-600">Pengembangan Profesi</button>
+    </div>
+
+    
+    
+    
+    
+    <div class="flex-1 p-6 md:p-10 bg-slate-50 overflow-y-auto">
+    
+    <div id="pegawai-profil-saya-content" class="pegawai-tab-content space-y-6">
+      <div class="flex justify-between items-center border-b pb-4">
+        <h2 class="text-2xl font-bold text-slate-800">Profil Saya</h2>
+        <button onclick="enableEditProfil()" id="btn-edit-profil" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition flex items-center shadow-sm">
+          <i class="fa fa-edit mr-2"></i> Edit Data Mandiri
+        </button>
+      </div>
+
+      <form id="form-profil-pegawai" onsubmit="simpanPerubahanProfil(event)" class="space-y-6">
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-user text-blue-600 mr-2"></i> Kategori 1: Data Diri</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            
+            
+            <div class="md:col-span-1 flex flex-col items-center justify-center p-4 bg-slate-50 rounded-xl border border-dashed">
+              <img id="p_foto" src="https://via.placeholder.com/150" class="w-32 h-32 object-cover rounded-full border shadow-sm mb-2">
+              <input type="hidden" id="p_url_foto">
+              
+              <label class="block text-[11px] font-semibold text-slate-500 mb-1 text-center">Ganti Pas Foto Profil</label>
+              <input type="file" id="p_foto_file" disabled accept="image/*" class="w-full text-xs bg-white p-1.5 border rounded outline-none file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blue-50 file:text-blue-700">
+              <p class="text-[9px] text-slate-400 mt-1 text-center">Format: JPG/PNG, Maksimal 2MB.</p>
+            </div>
+            
+            <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Nama Lengkap</label><input type="text" id="p_nama" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tempat Lahir</label><input type="text" id="p_tempat_lahir" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tanggal Lahir</label><input type="date" id="p_tgl_lahir" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jenis Kelamin</label><select id="p_jk" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"><option value="L">Laki-Laki</option><option value="P">Perempuan</option></select></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Agama</label><input type="text" id="p_agama" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">No HP / WA</label><input type="text" id="p_nohp" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+              <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-500 mb-1">Alamat Domisili</label><textarea id="p_alamat" disabled rows="2" class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-briefcase text-blue-600 mr-2"></i> Kategori 2: Data Kepegawaian</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">NIPY</label><input type="text" id="p_nipy" disabled class="w-full p-2.5 border rounded-lg bg-slate-100 font-bold text-blue-700 outline-none text-sm"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jabatan Resmi</label><input type="text" id="p_jabatan" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pekerjaan</label><input type="text" id="p_pekerjaan" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Unit Kerja</label><input type="text" id="p_unit" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Mulai Kerja</label><input type="text" id="p_mulai_kerja" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pangkat / Golongan</label><input type="text" id="p_pangkat" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-graduation-cap text-blue-600 mr-2"></i> Kategori 3: Data Pendidikan & Sertifikasi</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pendidikan Terakhir</label><input type="text" id="p_pendidikan" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jurusan / Program Studi</label><input type="text" id="p_jurusan" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">NUPTK</label><input type="text" id="p_nuptk" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">No Sertifikasi Guru</label><input type="text" id="p_no_sertifikasi" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tahun Sertifikasi</label><input type="text" id="p_tahun_sertifikasi" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2">
+            <i class="fa fa-heart text-blue-600 mr-2"></i> Kategori 4: Data Anggota Keluarga
+          </h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Status Pernikahan (K/TK)</label><input type="text" id="p_ktk" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jumlah Anak</label><input type="number" id="p_jml_anak" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border mb-6">
+            <h4 class="text-sm font-bold text-slate-600 mb-3 flex items-center"><i class="fa fa-user-friends mr-2 text-rose-500"></i> Data Suami / Istri</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Nama Suami / Istri</label><input type="text" id="p_nama_pasangan" disabled class="w-full p-2.5 border rounded-lg bg-white outline-none text-sm font-medium" placeholder="-"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tanggal Lahir Suami / Istri</label><input type="date" id="p_tgl_lahir_pasangan" disabled class="w-full p-2.5 border rounded-lg bg-white outline-none text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Usia Suami / Istri (Otomatis)</label><input type="text" id="p_usia_pasangan" disabled class="w-full p-2.5 border rounded-lg bg-slate-100 font-medium text-slate-500 outline-none text-sm" placeholder="-"></div>
+            </div>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border">
+            <h4 class="text-sm font-bold text-slate-600 mb-3 flex items-center"><i class="fa fa-child mr-2 text-indigo-500"></i> Data Anak (Maksimal 4)</h4>
+            
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr class="border-b text-slate-500 uppercase text-xs font-bold bg-slate-100">
+                    <th class="p-2 w-24">Anak Ke</th>
+                    <th class="p-2">Nama Anak</th>
+                    <th class="p-2 w-48">Tanggal Lahir</th>
+                    <th class="p-2 w-28">Usia</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y bg-white">
+                  <tr>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Kesatu</td>
+                    <td class="p-2"><input type="text" id="p_nama_anak1" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="date" id="p_tgl_lahir_anak1" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="text" id="p_usia_anak1" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Kedua</td>
+                    <td class="p-2"><input type="text" id="p_nama_anak2" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="date" id="p_tgl_lahir_anak2" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="text" id="p_usia_anak2" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Ketiga</td>
+                    <td class="p-2"><input type="text" id="p_nama_anak3" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="date" id="p_tgl_lahir_anak3" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="text" id="p_usia_anak3" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Keempat</td>
+                    <td class="p-2"><input type="text" id="p_nama_anak4" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="date" id="p_tgl_lahir_anak4" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
+                    <td class="p-2"><input type="text" id="p_usia_anak4" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-key text-blue-600 mr-2"></i> Kategori 5: Informasi Akun Sistem</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Username Sistem</label><input type="text" id="p_username" disabled class="w-full p-2.5 border rounded-lg bg-slate-100 outline-none text-sm font-medium text-slate-500"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Ubah Kata Sandi / Password</label><input type="password" id="p_password" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium" placeholder="Masukkan password baru..."></div>
+          </div>
+        </div>
+
+        <div id="p_aksi_simpan" class="hidden flex justify-end space-x-2 bg-slate-100 p-4 rounded-xl border">
+          <button type="button" onclick="disableEditProfil()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 rounded-lg text-sm text-slate-700 font-medium transition">Batal</button>
+          <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition shadow-sm"><i class="fa fa-save mr-2"></i> Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="pegawai-riwayat-kerja-content" class="pegawai-tab-content hidden space-y-4">
+      <h2 class="text-2xl font-bold">Riwayat Kerja (Guru)</h2>
+      <p class="text-sm text-slate-500">Fitur Riwayat Mengajar, Tugas Tambahan, dan Inovasi Pembelajaran sedang dalam tahap pengembangan konsep detail.</p>
+    </div>
+    
+    <div id="pegawai-prestasi-content" class="pegawai-tab-content hidden space-y-4">
+      <h2 class="text-2xl font-bold">Prestasi & Kontribusi</h2>
+      <p class="text-sm text-slate-500">Fitur pencatatan prestasi mandiri sedang dalam tahap pengembangan konsep detail.</p>
+    </div>
+
+    <div id="pegawai-pengembangan-content" class="pegawai-tab-content hidden space-y-4">
+      <h2 class="text-2xl font-bold">Pengembangan Profesi</h2>
+      <p class="text-sm text-slate-500">Fitur riwayat pelatihan dan sertifikasi profesi sedang dalam tahap pengembangan konsep detail.</p>
+    </div>
+
+    <div id="pegawai-kinerja-content" class="pegawai-tab-content hidden space-y-4">
+      <h2 class="text-2xl font-bold">Kinerja Pegawai</h2>
+      <p class="text-sm text-slate-500">Halaman evaluasi kinerja tahunan / berkala.</p>
+    </div>
+
+  </div>
+
+
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzqeqHnTnNX4X6afAtEJb-JBJMIxBpcj59JzHFNVyfZqAAsjp3PVbfFRu6yOkzNY4Hv/exec"; 
+    let globalData = {};
+
+    function showPage(pageId) {
+      ['login-page', 'admin-dashboard', 'pegawai-dashboard'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(pageId).classList.remove('hidden');
+    }
+
+
+    //================
+    //PERIKSA LOGIN
+    //================
+    async function executeLogin(e) {
+      e.preventDefault(); // Mencegah halaman refresh saat submit form
+      
+      // 1. Ambil nilai dari form login
+      const usernameInput = document.getElementById("login-username").value;
+      const passwordInput = document.getElementById("login-password").value;
+      const roleInput = document.getElementById("login-role").value; // 'Admin' atau 'Pegawai'
+      
+      // Ambil tombol submit untuk efek loading
+      const btnSubmit = e.target.querySelector("button[type='submit']");
+      const originalText = btnSubmit.innerHTML;
+
+      // Ubah tombol jadi loading
+      btnSubmit.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> Memeriksa...';
+      btnSubmit.disabled = true;
+
+      try {
+        // 2. Kirim data ke Google Apps Script (Backend)
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'login',
+            payload: {
+              username: usernameInput,
+              password: passwordInput,
+              role: roleInput
+            }
+          }),
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          }
+        });
+
+        const result = await response.json();
+
+        // 3. Tangani hasil respon dari server
+        if (result.status === "SUCCESS") {
+          const userData = result.data;
+          
+          if (userData.role === "Admin") {
+            // --- JIKA LOGIN SEBAGAI ADMIN ---
+            alert("Berhasil Login! Selamat datang Admin: " + userData.nama);
+            showPage("admin-dashboard");
+            
+            // Memanggil fungsi untuk memuat data tabel di sini
+            loadAdminData(); 
+
+          } else if (userData.role === "Pegawai") {
+            alert("Berhasil Login! Selamat datang: " + userData.nama);
+            document.getElementById("pegawai-navbar-name").innerText = userData.nama;
+            
+            // 1. Tampilkan Halaman Dashboard Pegawai
+            showPage("pegawai-dashboard");
+            switchPegawaiTab("profil-saya"); // Buka tab default profil saya
+
+            // 2. Kunci tab navigasi berdasarkan Hak Akses (Guru atau Bukan Guru)
+            const tabButtons = document.getElementById("pegawai-tabs"); // Pastikan div pembungkus tombol menu di sidebar Anda memiliki ID ini
+            
+            if (userData.isGuru) {
+              // Jika Guru, tampilkan semua 5 Tab
+              document.querySelectorAll(".tab-link-guru").forEach(btn => btn.classList.remove("hidden"));
+            } else {
+              // Jika Bukan Guru, sembunyikan tab khusus guru (Hanya tersisa Profil Saya & Kinerja)
+              document.querySelectorAll(".tab-link-guru").forEach(btn => btn.classList.add("hidden"));
+            }
+
+            // 3. Panggil Server untuk Mengunduh Data Lengkap Pegawai & Keluarga
+            loadPegawaiProfileData(userData.username);
+          }
+          
+          // Kosongkan isian form setelah berhasil masuk
+          e.target.reset();
+        } else {
+          // Jika username/password salah
+          alert("Gagal Login: " + result.message);
+        }
+      } catch (error) {
+        alert("Terjadi kesalahan koneksi ke server. Pastikan URL Apps Script benar.");
+        console.error(error);
+      } finally {
+        // Kembalikan tombol submit ke bentuk semula
+        btnSubmit.innerHTML = originalText;
+        btnSubmit.disabled = false;
+      }
+    }
+
+    function tampilkanLoginSaja() {
+  // ... kode Anda yang lain untuk menyembunyikan/menampilkan halaman ...
+
+  // GANTI KODE RESET LAMA DENGAN INI (Gunakan ID Form yang Benar & Cara Aman):
+  const formTarget = document.getElementById("form-calon-page");
+  if (formTarget) {
+    HTMLFormElement.prototype.reset.call(formTarget);
+  }
+}
+
+
+
+   // Fungsi untuk menampilkan HANYA Form Login dan membersihkan Form Registrasi
+    function tampilkanLoginSaja() {
+      // 1. Sembunyikan kontainer registrasi
+      const regContainer = document.getElementById("form-calon-page") || document.getElementById("form-registrasi-wrapper");
+      if (regContainer) {
+        regContainer.classList.add("hidden");
+      }
+
+      // 2. Tampilkan kontainer login
+      const loginContainer = document.getElementById("login-page") || document.getElementById("form-login-wrapper");
+      if (loginContainer) {
+        loginContainer.classList.remove("hidden");
+      }
+
+      // 3. Reset isi inputan form registrasi agar bersih kembali saat dibuka nanti (VERSI FIX)
+      const regForm = document.getElementById("form-register-calon"); // Menargetkan ID form yang asli
+      if (regForm) {
+        HTMLFormElement.prototype.reset.call(regForm); // Cara reset paling aman di JavaScript
+      }
+    }
+
+    // Fungsi Tambahan: Untuk Tombol Keluar / Logout
+    function logout() {
+      const konfirmasi = confirm("Apakah Anda yakin ingin keluar?");
+      if (konfirmasi) {
+        // Kembalikan ke halaman login
+        showPage("login-page");
+        // Hapus nama profil di navbar pegawai
+        document.getElementById("pegawai-navbar-name").innerText = "Nama Pegawai";
+      }
+    }
+
+    // ==========================================
+    // FUNGSI NAVIGASI TAB & PENCARIAN
+    // ==========================================
+
+    //Fungsi untuk pindah Tab di Dashboard Admin
+    function switchAdminTab(tabName) {
+      // Ambil semua elemen konten tab admin
+      const tabContents = document.querySelectorAll('.admin-tab-content');
+      
+      // Sembunyikan semua tab terlebih dahulu
+      tabContents.forEach(tab => {
+        tab.classList.add('hidden');
+      });
+
+      // Tampilkan hanya tab yang ID-nya cocok (Contoh: 'tab-validasi-pegawai')
+      const targetTab = document.getElementById('tab-' + tabName);
+      if (targetTab) {
+        targetTab.classList.remove('hidden');
+      }
+    }
+
+    // Fungsi untuk pindah Tab di Dashboard Pegawai
+    // Fungsi Navigasi Tab Dashboard Pegawai
+    function switchPegawaiTab(tabName) {
+      document.querySelectorAll('.pegawai-tab-content').forEach(content => {
+        content.classList.add('hidden');
+      });
+      const target = document.getElementById('pegawai-' + tabName + '-content');
+      if (target) target.classList.remove('hidden');
+    }
+
+    //Fungsi Mengambil & Mengisi Data Lengkap dari Sheet Pegawai + Keluarga ke Form
+    async function loadPegawaiProfileData(username) {
+      try {
+        // Tampilkan efek loading cursor sementara
+        document.body.style.cursor = 'wait';
+
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'getPegawaiProfile',
+            payload: { username: username }
+          }),
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+        });
+
+        const result = await response.json();
+
+        if (result.status === "SUCCESS") {
+          const profil = result.data.profil;
+          const keluarga = result.data.keluarga; // Data dari Sheet Keluarga
+
+          // Simpan ke variable global lokal agar mudah diambil saat update
+          globalData.myProfile = profil;
+          globalData.myFamily = keluarga;
+
+          // --- INJECT DATA SHEET PEGAWAI KELIATAN DI FORM ---
+          document.getElementById("p_foto").src = profil["URL FOTO"] || "https://via.placeholder.com/150/1e40af/ffffff?text=FOTO";
+          document.getElementById("p_url_foto").value = profil["URL FOTO"] || "";
+          document.getElementById("p_nama").value = profil["NAMA PEGAWAI"] || "";
+          document.getElementById("p_tempat_lahir").value = profil["TEMPAT LAHIR"] || "";
+          
+          // Format tanggal ke YYYY-MM-DD agar dibaca oleh <input type="date"> HTML
+          if (profil["TANGGAL LAHIR"]) {
+            const [d, m, y] = profil["TANGGAL LAHIR"].split("-");
+            document.getElementById("p_tgl_lahir").value = `${y}-${m}-${d}`;
+          }
+          
+          document.getElementById("p_jk").value = profil["JK"] || "L";
+          document.getElementById("p_agama").value = profil["AGAMA"] || "";
+          document.getElementById("p_nohp").value = profil["NO HP"] || "";
+          document.getElementById("p_alamat").value = profil["ALAMAT"] || "";
+          
+          document.getElementById("p_nipy").value = profil["NIPY"] || "- Belum Ada NIPY -";
+          document.getElementById("p_jabatan").value = profil["JABATAN"] || "";
+          document.getElementById("p_pekerjaan").value = profil["PEKERJAAN"] || "";
+          document.getElementById("p_unit").value = profil["UNIT KERJA"] || "";
+          document.getElementById("p_mulai_kerja").value = profil["MULAI KERJA"] || "";
+          document.getElementById("p_pangkat").value = profil["PANGKAT"] || "";
+          
+          document.getElementById("p_pendidikan").value = profil["PENDIDIKAN"] || "";
+          document.getElementById("p_jurusan").value = profil["JURUSAN"] || "";
+          document.getElementById("p_nuptk").value = profil["NUPTK"] || "";
+          document.getElementById("p_no_sertifikasi").value = profil["NO SERTIFIKASI"] || "";
+          document.getElementById("p_tahun_sertifikasi").value = profil["TAHUN SERTIFIKASI"] || "";
+          
+          document.getElementById("p_ktk").value = profil["K/TK"] || "";
+          document.getElementById("p_jml_anak").value = profil["JML ANAK"] || 0;
+          document.getElementById("p_username").value = profil["USERNAME"] || "";
+          document.getElementById("p_password").value = profil["PASSWORD"] || "";
+
+          // --- INJECT DATA DARI SHEET KELUARGA (STRUKTUR BARU) ---
+          if (keluarga) {
+            // Fungsi internal pembantu untuk konversi dd-mm-yyyy ke yyyy-mm-dd
+            const formatToHTMLDate = (dateStr) => {
+              if (!dateStr || !dateStr.includes("-")) return "";
+              const [d, m, y] = dateStr.split("-");
+              return `${y}-${m}-${d}`;
+            };
+
+            // 1. Data Pasangan
+            document.getElementById("p_nama_pasangan").value = keluarga["NAMA PASANGAN"] || "";
+            document.getElementById("p_tgl_lahir_pasangan").value = formatToHTMLDate(keluarga["TANGGAL LAHIR PASANGAN"]);
+            document.getElementById("p_usia_pasangan").value = keluarga["USIA PASANGAN"] ? keluarga["USIA PASANGAN"] + " Tahun" : "-";
+
+            // 2. Data Anak Kesatu
+            document.getElementById("p_nama_anak1").value = keluarga["NAMA ANAK KESATU"] || "";
+            document.getElementById("p_tgl_lahir_anak1").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KESATU"]);
+            document.getElementById("p_usia_anak1").value = keluarga["USIA ANAK KESATU"] ? keluarga["USIA ANAK KESATU"] + " Tahun" : "-";
+
+            // 3. Data Anak Kedua
+            document.getElementById("p_nama_anak2").value = keluarga["NAMA ANAK KEDUA"] || "";
+            document.getElementById("p_tgl_lahir_anak2").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KEDUA"]);
+            document.getElementById("p_usia_anak2").value = keluarga["USIA ANAK KEDUA"] ? keluarga["USIA ANAK KEDUA"] + " Tahun" : "-";
+
+            // 4. Data Anak Ketiga
+            document.getElementById("p_nama_anak3").value = keluarga["NAMA ANAK KETIGA"] || "";
+            document.getElementById("p_tgl_lahir_anak3").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KETIGA"]);
+            document.getElementById("p_usia_anak3").value = keluarga["USIA ANAK KETIGA"] ? keluarga["USIA ANAK KETIGA"] + " Tahun" : "-";
+
+            // 5. Data Anak Keempat
+            document.getElementById("p_nama_anak4").value = keluarga["NAMA ANAK KEEMPAT"] || "";
+            document.getElementById("p_tgl_lahir_anak4").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KEEMPAT"]);
+            document.getElementById("p_usia_anak4").value = keluarga["USIA ANAK KEEMPAT"] ? keluarga["USIA ANAK KEEMPAT"] + " Tahun" : "-";
+
+          } else {
+            // Jika data keluarga kosong di spreadsheet, bersihkan semua field
+            const familyFields = [
+              "p_nama_pasangan", "p_tgl_lahir_pasangan", "p_usia_pasangan",
+              "p_nama_anak1", "p_tgl_lahir_anak1", "p_usia_anak1",
+              "p_nama_anak2", "p_tgl_lahir_anak2", "p_usia_anak2",
+              "p_nama_anak3", "p_tgl_lahir_anak3", "p_usia_anak3",
+              "p_nama_anak4", "p_tgl_lahir_anak4", "p_usia_anak4"
+            ];
+            familyFields.forEach(id => {
+              const el = document.getElementById(id);
+              if (el) el.value = el.type === "number" ? 0 : "";
+            });
+          }
+
+        } else {
+          alert("Gagal memuat profil: " + result.message);
+        }
+      } catch (error) {
+        alert("Terjadi gangguan koneksi data profil.");
+        console.error(error);
+      } finally {
+        document.body.style.cursor = 'default';
+      }
+    }
+
+    //Kontrol Buka Kunci Form (Sistem Edit Mandiri Pegawai)
+    function enableEditProfil() {
+      const fieldsToEdit = [
+        "p_foto_file", "p_tempat_lahir", "p_tgl_lahir", "p_jk", "p_agama", "p_nohp", 
+        "p_alamat", "p_pendidikan", "p_jurusan", "p_nuptk", "p_no_sertifikasi", 
+        "p_tahun_sertifikasi", "p_ktk", "p_jml_anak", "p_password",
+        // ID Tambahan Data Keluarga Baru:
+        "p_nama_pasangan", "p_tgl_foto_pasangan", "p_tgl_lahir_pasangan",
+        "p_nama_anak1", "p_tgl_lahir_anak1",
+        "p_nama_anak2", "p_tgl_lahir_anak2",
+        "p_nama_anak3", "p_tgl_lahir_anak3",
+        "p_nama_anak4", "p_tgl_lahir_anak4"
+      ];
+      
+      fieldsToEdit.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.disabled = false;
+          el.classList.remove("bg-slate-50");
+          el.classList.add("bg-white", "focus:ring-2", "focus:ring-blue-500");
+        }
+      });
+
+      document.getElementById("p_aksi_simpan").classList.remove("hidden");
+      document.getElementById("btn-edit-profil").classList.add("hidden");
+    }
+
+    //Kunci Kembali Form jika Batal
+    function disableEditProfil() {
+      const form = document.getElementById("form-profil-pegawai");
+      form.reset(); // kembalikan ke awal
+      
+      // Ambil kembali data asli
+      if(globalData.myProfile) {
+        loadPegawaiProfileData(globalData.myProfile.USERNAME);
+      }
+
+      const allInputs = form.querySelectorAll("input, select, textarea");
+      allInputs.forEach(el => {
+        el.disabled = true;
+        el.classList.add("bg-slate-50");
+        el.classList.remove("bg-white", "focus:ring-2", "focus:ring-blue-500");
+      });
+
+      document.getElementById("p_aksi_simpan").classList.add("hidden");
+      document.getElementById("btn-edit-profil").classList.remove("hidden");
+    }
+
+    //Kirim Perubahan Update Mandiri ke Server Google Sheets
+    //======================================================
+    async function simpanPerubahanProfil(event) {
+      event.preventDefault();
+
+      document.body.style.cursor = 'wait';
+      const btnSimpan = event.submitter;
+      const originalBtnText = btnSimpan.innerHTML;
+      btnSimpan.innerHTML = `<i class="fa fa-spinner fa-spin mr-2"></i>Menyimpan...`;
+      btnSimpan.disabled = true;
+
+      const formatToSheetDate = (htmlDate) => {
+        if (!htmlDate) return "";
+        const [y, m, d] = htmlDate.split("-");
+        return `${d}-${m}-${y}`;
+      };
+
+      try {
+        // =====================================================================
+        // PROSES CEK APAKAH PEGAWAI BERMANDIRI MENGGANTI FOTO
+        // =====================================================================
+        const fileInput = document.getElementById("p_foto_file");
+        let fotoBlobData = { base64: "", name: "", type: "" }; // Default kosong jika tidak ganti foto
+
+        if (fileInput && fileInput.files.length > 0) {
+          const fileTerpilih = fileInput.files[0];
+          
+          if (fileTerpilih.size > 2 * 1024 * 1024) {
+            alert("Gagal: Ukuran foto baru terlalu besar! Maksimal 2MB.");
+            return; 
+          }
+          // Gunakan fungsi fileToBase64 yang sudah kita buat sebelumnya
+          fotoBlobData = await fileToBase64(fileTerpilih); 
+        }
+        // =====================================================================
+
+        const payloadData = {
+          "USERNAME": document.getElementById("p_username").value,
+          "URL FOTO": document.getElementById("p_url_foto").value, // Mengirim URL lama sebagai fallback
+          "TEMPAT LAHIR": document.getElementById("p_tempat_lahir").value,
+          "TANGGAL LAHIR": formatToSheetDate(document.getElementById("p_tgl_lahir").value),
+          "JK": document.getElementById("p_jk").value,
+          "AGAMA": document.getElementById("p_agama").value,
+          "NO HP": document.getElementById("p_nohp").value,
+          "ALAMAT": document.getElementById("p_alamat").value,
+          "PENDIDIKAN": document.getElementById("p_pendidikan").value,
+          "JURUSAN": document.getElementById("p_jurusan").value,
+          "NUPTK": document.getElementById("p_nuptk").value,
+          "NO SERTIFIKASI": document.getElementById("p_no_sertifikasi").value,
+          "TAHUN SERTIFIKASI": document.getElementById("p_tahun_sertifikasi").value,
+          "K/TK": document.getElementById("p_ktk").value,
+          "JML ANAK": document.getElementById("p_jml_anak").value,
+          "PASSWORD": document.getElementById("p_password").value,
+          
+          // Sisipkan objek foto baru ke payload utama
+          "FOTO_BLOB": fotoBlobData, 
+          
+          "DATA_KELUARGA": {
+            "NAMA PEGAWAI": document.getElementById("p_nama").value,
+            "NAMA PASANGAN": document.getElementById("p_nama_pasangan").value,
+            "TANGGAL LAHIR PASANGAN": formatToSheetDate(document.getElementById("p_tgl_lahir_pasangan").value),
+            "NAMA ANAK KESATU": document.getElementById("p_nama_anak1").value,
+            "TANGGAL LAHIR ANAK KESATU": formatToSheetDate(document.getElementById("p_tgl_lahir_anak1").value),
+            "NAMA ANAK KEDUA": document.getElementById("p_nama_anak2").value,
+            "TANGGAL LAHIR ANAK KEDUA": formatToSheetDate(document.getElementById("p_tgl_lahir_anak2").value),
+            "NAMA ANAK KETIGA": document.getElementById("p_nama_anak3").value,
+            "TANGGAL LAHIR ANAK KETIGA": formatToSheetDate(document.getElementById("p_tgl_lahir_anak3").value),
+            "NAMA ANAK KEEMPAT": document.getElementById("p_nama_anak4").value,
+            "TANGGAL LAHIR ANAK KEEMPAT": formatToSheetDate(document.getElementById("p_tgl_lahir_anak4").value)
+          }
+        };
+
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'updatePegawai',
+            payload: payloadData
+          }),
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+        });
+
+        const result = await response.json();
+
+        if (result.status === "SUCCESS") {
+          alert("Selamat! Data profil dan foto Anda berhasil diperbarui.");
+          
+          // Reset input file agar kosong kembali
+          if(fileInput) fileInput.value = ""; 
+          
+          disableEditProfil(); 
+          loadPegawaiProfileData(payloadData.USERNAME); // Reload untuk refresh foto baru di layar
+        } else {
+          alert("Gagal menyimpan perubahan: " + result.message);
+        }
+
+      } catch (error) {
+        console.error("Error simpanPerubahanProfil:", error);
+        alert("Terjadi kesalahan sistem saat mencoba menyimpan data.");
+      } finally {
+        document.body.style.cursor = 'default';
+        btnSimpan.innerHTML = originalBtnText;
+        btnSimpan.disabled = false;
+      }
+    }
+
+
+    //Fungsi untuk Fitur Cari/Pencarian di dalam Tabel
+    function searchTable(tbodyId, keyword) {
+      const tbody = document.getElementById(tbodyId);
+      if (!tbody) return;
+      
+      const rows = tbody.getElementsByTagName('tr');
+      const filter = keyword.toLowerCase();
+
+      for (let i = 0; i < rows.length; i++) {
+        // Gabungkan semua teks dalam satu baris untuk dicari
+        const rowText = rows[i].textContent || rows[i].innerText;
+        
+        if (rowText.toLowerCase().indexOf(filter) > -1) {
+          rows[i].style.display = ""; // Tampilkan jika cocok
+        } else {
+          rows[i].style.display = "none"; // Sembunyikan jika tidak cocok
+        }
+      }
+    }
+
+
+
+
+//==============================================
+// DARI (YYYY-MM-DD) ke Spreadsheet (DD-MM-YYYY)
+//==============================================
+function formatTanggalID(dateString) {
+  if (!dateString) return "";
+  const [year, month, day] = dateString.split("-");
+  return `${day}-${month}-${year}`;
+}
+
+// Fungsi utilitas untuk membaca file gambar menjadi Base64
+//=========================================================
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      // Memotong teks header "data:image/jpeg;base64," agar murni teks base64 saja
+      const base64Clean = reader.result.split(",")[1];
+      resolve({
+        base64: base64Clean,
+        name: file.name,
+        type: file.type
+      });
+    };
+    reader.onerror = (error) => {
+      console.error("Error membaca file:", error);
+      reject(error);
+    };
+  });
+}
+
+
+//=====================
+// SUBMIT CALON PEGAWAI - VERSI AMAN & SINKRON
+//=====================
+async function submitCalonPegawai(event) {
+  event.preventDefault(); // Mencegah halaman me-refresh
+  
+  const btnSubmit = document.getElementById("btn-submit-calon");
+  const originalText = btnSubmit.innerHTML;
+  
+  // Ubah tombol menjadi mode loading dan ubah kursor mouse
+  btnSubmit.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> Mengirim...';
+  btnSubmit.disabled = true;
+  document.body.style.cursor = 'wait';
+
+  try {
+    // =========================================================================
+    // PROSES BACA FOTO BARU
+    // =========================================================================
+    const fileInput = document.getElementById("calon_foto"); 
+    let fotoBlobData = { base64: "", name: "", type: "" }; // Default kosong jika tidak upload
+
+    if (fileInput && fileInput.files.length > 0) {
+      const fileTerpilih = fileInput.files[0];
+
+      // Validasi Ukuran File (Maksimal 2MB = 2 * 1024 * 1024 bytes)
+      if (fileTerpilih.size > 2 * 1024 * 1024) {
+        alert("Gagal: Ukuran pas foto terlalu besar! Maksimal 2MB.");
+        return; // Menghentikan fungsi
+      }
+
+      // Jalankan fungsi pembaca file dan tunggu sampai selesai konversi
+      fotoBlobData = await fileToBase64(fileTerpilih);
+      
+      // ==========================================
+      // KODE DETEKSI SEMENTARA (SUNTIK DI SINI)
+      // ==========================================
+      console.log("=== CEK DATA FOTO SEBELUM DIKIRIM ===");
+      console.log("Nama File:", fotoBlobData.name);
+      console.log("Tipe File:", fotoBlobData.type);
+      console.log("Panjang Teks Base64:", fotoBlobData.base64 ? fotoBlobData.base64.length : 0);
+      // ==========================================
+    }
+    // =========================================================================
+
+    // Mengumpulkan payload berdasarkan header kolom di Sheet "Calon Pegawai"
+    const payloadData = {
+      "NAMA PEGAWAI": document.getElementById("calon_nama").value,
+      "TEMPAT LAHIR": document.getElementById("calon_tempat_lahir").value,
+      "TANGGAL LAHIR": formatTanggalID(document.getElementById("calon_tgl_lahir").value),
+      "JK": document.getElementById("calon_jk").value,
+      "AGAMA": document.getElementById("calon_agama").value,
+      "ALAMAT": document.getElementById("calon_alamat").value,
+      "NO HP": document.getElementById("calon_nohp").value,
+      "PENDIDIKAN": document.getElementById("calon_pendidikan").value,
+      "JURUSAN": document.getElementById("calon_jurusan").value,
+      "PEKERJAAN": document.getElementById("calon_pekerjaan").value,
+      "UNIT KERJA": document.getElementById("calon_unit").value,
+      "K/TK": document.getElementById("calon_ktk").value,
+      "JML ANAK": document.getElementById("calon_jml_anak").value,
+      "USERNAME": document.getElementById("calon_username").value,
+      "PASSWORD": document.getElementById("calon_password").value,
+      
+      "NIPY": "", 
+      "STATUS": "Calon", 
+      "MULAI KERJA": "",
+      "JABATAN": "",
+      "PANGKAT": "",
+      "TMT PANGKAT": "",
+      "BERKALA TERAKHIR": "",
+      "USIA": "", 
+      "NUPTK": "",
+      "NO SERTIFIKASI": "",
+      "TAHUN SERTIFIKASI": "",
+      "URL FOTO": "",
+      
+      // Sisipkan data file foto
+      "FOTO_BLOB": fotoBlobData
+    };
+
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'registerCalon',
+        payload: payloadData
+      }),
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      }
+    });
+
+    const result = await response.json();
+    
+    if (result.status === "SUCCESS" || result.result === "SUCCESS") {
+      alert("Pendaftaran Berhasil! Data Anda telah masuk ke sistem dan menunggu validasi Admin.");
+      
+      // FIX PERBAIKAN: Targetkan langsung ke elemen <form> dengan ID yang benar & Cara Aman
+      const formTarget = document.getElementById("form-register-calon");
+      if (formTarget) {
+        HTMLFormElement.prototype.reset.call(formTarget);
+      }
+
+      tampilkanLoginSaja();
+    } else {
+      alert("Terjadi Kesalahan: " + (result.message || "Gagal menyimpan data"));
+    }
+  } catch (error) {
+    // FIX PERBAIKAN: Menampilkan pesan error aslinya agar transparan terpantau di layar
+    alert("Terjadi Kendala: " + error.message);
+    console.error(error);
+  } finally {
+    // Kembalikan tombol dan kursor mouse ke keadaan semula
+    btnSubmit.innerHTML = originalText;
+    btnSubmit.disabled = false;
+    document.body.style.cursor = 'default';
+  }
+}
+
+    // Logika pengisian diagram secara responsif dengan Chart.js
+    // Logika penyaringan tabel (pencarian kata kunci)
+
+// 1. FUNGSI UNTUK MENAMPILKAN DATA CALON PEGAWAI KE TABEL
+    // Fungsi ini dipanggil setelah Admin sukses login & data diunduh dari Apps Script
+    function renderTableCalonPegawai(dataCalon) {
+      globalData.calonPegawai = dataCalon; // Simpan ke global variable
+      const tbody = document.getElementById("table-calon-rows");
+      tbody.innerHTML = "";
+
+      if (!dataCalon || dataCalon.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Tidak ada data calon pegawai yang perlu divalidasi.</td></tr>`;
+        return;
+      }
+
+      dataCalon.forEach(calon => {
+        // Gunakan foto default jika URL Foto kosong
+        const fotoUrl = calon["URL FOTO"] || "https://via.placeholder.com/150/1e40af/ffffff?text=FOTO";
+        
+        const tr = document.createElement("tr");
+        tr.className = "border-b hover:bg-slate-50 transition";
+        tr.innerHTML = `
+          <td class="p-4"><img src="${fotoUrl}" alt="Foto" class="w-10 h-10 object-cover rounded-full border"></td>
+          <td class="p-4 font-semibold text-slate-700">${calon["NAMA PEGAWAI"]}</td>
+          <td class="p-4"><span class="px-2.5 py-1 text-xs font-semibold bg-amber-100 text-amber-800 rounded-full">${calon["STATUS"] || 'Calon'}</span></td>
+          <td class="p-4 text-slate-600">${calon["UNIT KERJA"] || '-'}</td>
+          <td class="p-4 text-slate-600">${calon["PEKERJAAN"] || '-'}</td>
+          <td class="p-4">
+            <div class="flex items-center justify-center space-x-2">
+              <button onclick="lihatDetailCalon('${calon["USERNAME"]}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-semibold transition flex items-center">
+                <i class="fa fa-eye mr-1"></i> Detail
+              </button>
+              <button onclick="prosesValidasiCalon('${calon["NIPY"] || ''}', '${calon["USERNAME"]}', 'SETUJU')" class="px-3 py-1.5 bg-emerald-600 text-white hover:bg-emerald-700 rounded-lg text-xs font-semibold transition flex items-center shadow-sm">
+                <i class="fa fa-check mr-1"></i> Setuju
+              </button>
+              <button onclick="prosesValidasiCalon('${calon["NIPY"] || ''}', '${calon["USERNAME"]}', 'HAPUS')" class="px-3 py-1.5 bg-red-100 text-red-600 hover:bg-red-200 rounded-lg text-xs font-semibold transition flex items-center">
+                <i class="fa fa-trash mr-1"></i> Hapus
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 2. FUNGSI TOMBOL: LIHAT DETAIL (Menampilkan Modal Pop-up)
+    function lihatDetailCalon(username) {
+      const calon = globalData.calonPegawai.find(c => c.USERNAME === username);
+      if (!calon) return;
+
+      const modalBody = document.getElementById("modal-calon-body");
+      
+      // Susun visualisasi detail data secara rapi berbasis grid 2 kolom
+      modalBody.innerHTML = `
+        <div class="flex items-center space-x-4 p-4 bg-blue-50 rounded-xl mb-4">
+          <img src="${calon["URL FOTO"] || 'https://via.placeholder.com/150/1e40af/ffffff?text=FOTO'}" class="w-16 h-16 object-cover rounded-full border-2 border-blue-400">
+          <div>
+            <h4 class="text-lg font-bold text-slate-800">${calon["NAMA PEGAWAI"]}</h4>
+            <p class="text-sm text-slate-500">Pekerjaan: ${calon["PEKERJAAN"]} | Unit: ${calon["UNIT KERJA"]}</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div><p class="text-xs text-slate-400 font-medium">Jenis Kelamin</p><p class="font-semibold">${calon["JK"] === 'L' ? 'Laki-Laki' : 'Perempuan'}</p></div>
+          <div><p class="text-xs text-slate-400 font-medium">Agama</p><p class="font-semibold">${calon["AGAMA"] || '-'}</p></div>
+          <div><p class="text-xs text-slate-400 font-medium">Tempat, Tanggal Lahir</p><p class="font-semibold">${calon["TEMPAT LAHIR"] || '-'}, ${calon["TANGGAL LAHIR"] || '-'}</p></div>
+          <div><p class="text-xs text-slate-400 font-medium">No HP / WA</p><p class="font-semibold">${calon["NO HP"] || '-'}</p></div>
+          <div class="sm:col-span-2"><p class="text-xs text-slate-400 font-medium">Alamat</p><p class="font-semibold">${calon["ALAMAT"] || '-'}</p></div>
+          <div><p class="text-xs text-slate-400 font-medium">Pendidikan Terakhir</p><p class="font-semibold">${calon["PENDIDIKAN"]} - ${calon["JURUSAN"]}</p></div>
+          <div><p class="text-xs text-slate-400 font-medium">Status Perkawinan</p><p class="font-semibold">Status: ${calon["K/TK"]} | Jml Anak: ${calon["JML ANAK"]}</p></div>
+          <div><p class="text-xs text-slate-400 font-medium">Username Akun</p><p class="font-semibold bg-slate-100 px-2 py-0.5 rounded inline-block text-slate-700">${calon["USERNAME"]}</p></div>
+          <div><p class="text-xs text-slate-400 font-medium">Waktu Pendaftaran</p><p class="text-xs text-slate-500">${calon["UPDATE TERAKHIR"] || '-'}</p></div>
+        </div>
+      `;
+
+      document.getElementById("modal-detail-calon").classList.remove("hidden");
+    }
+
+    function closeModalDetail() {
+      document.getElementById("modal-detail-calon").classList.add("hidden");
+    }
+
+    // 3. FUNGSI TOMBOL: SETUJU DAN HAPUS (Menghubungkan ke Backend API Google Apps Script)
+    async function prosesValidasiCalon(nipy, username, statusValidasi) {
+      // Karena Calon Pegawai belum punya NIPY resmi saat mendaftar, kita bisa gunakan 'USERNAME' sebagai pencari cadangan
+      const calon = globalData.calonPegawai.find(c => c.USERNAME === username);
+      const namaCalon = calon ? calon["NAMA PEGAWAI"] : "Pegawai ini";
+      
+      const pesanKonfirmasi = statusValidasi === "SETUJU" 
+        ? `Apakah Anda yakin ingin MENYETUJUI dan MEMINDAHKAN ${namaCalon} ke Sheet Pegawai Tetap?` 
+        : `Apakah Anda yakin ingin MENGHAPUS pendaftaran ${namaCalon} dari database?`;
+
+      if (!confirm(pesanKonfirmasi)) return;
+
+      try {
+        // Tampilkan loading screen sementara atau ubah cursor
+        document.body.style.cursor = 'wait';
+
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'validateCalon',
+            payload: {
+              nipy: calon["NIPY"] || username, // Kirim identifier unik (NIPY/Username) ke backend
+              statusValidasi: statusValidasi    // 'SETUJU' atau 'HAPUS'
+            }
+          }),
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+        });
+
+        const result = await response.json();
+
+        if (result.status === "SUCCESS") {
+          alert(`Sukses! Data telah berhasil di-${statusValidasi.toLowerCase()}.`);
+          
+          // Refresh data Admin setelah melakukan perubahan agar tabel langsung terupdate
+          if (typeof loadAdminData === "function") {
+            loadAdminData(); 
+          } else {
+            // Jika fungsi reload belum lengkap, hapus baris secara lokal dari UI sementara
+            globalData.calonPegawai = globalData.calonPegawai.filter(c => c.USERNAME !== username);
+            renderTableCalonPegawai(globalData.calonPegawai);
+          }
+        } else {
+          alert("Gagal memproses validasi: " + result.message);
+        }
+      } catch (error) {
+        alert("Terjadi kesalahan jaringan saat menghubungi Google Sheets.");
+        console.error(error);
+      } finally {
+        document.body.style.cursor = 'default';
+      }
+    }
+
+
+    // =========================================================
+    // FUNGSI UNTUK MENGAMBIL DATA SPREADSHEET (ADMIN)
+    // =========================================================
+    async function loadAdminData() {
+      try {
+        // Tampilkan pesan loading sementara di dalam tabel calon pegawai
+        const tbodyCalon = document.getElementById("table-calon-rows");
+        if (tbodyCalon) {
+          tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500"><i class="fa fa-spinner fa-spin mr-2"></i>Memuat data calon pegawai...</td></tr>`;
+        }
+
+        // Kirim request POST ke Apps Script untuk mengambil data admin/dashboard
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'getAdminData' // Aksi ini harus sesuai dengan yang ada di doPost Apps Script Anda
+          }),
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          }
+        });
+
+        const result = await response.json();
+
+        if (result.status === "SUCCESS") {
+          // Masukkan data calon pegawai ke fungsi render tabel yang sudah kita buat sebelumnya
+          // Pastikan properti "calonPegawai" sesuai dengan nama object yang dikirim dari Google Apps Script Anda
+          if (result.data && result.data.calonPegawai) {
+            renderTableCalonPegawai(result.data.calonPegawai);
+          } else {
+            tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Struktur data 'calonPegawai' tidak ditemukan.</td></tr>`;
+          }
+          
+          // NB: Jika Anda punya fungsi render untuk data pegawai tetap atau infografis, 
+          // Anda bisa memanggilnya juga di sini, contoh:
+          // if (result.data.pegawaiTetap) { renderTablePegawaiTetap(result.data.pegawaiTetap); }
+          
+        } else {
+          alert("Gagal mengambil data dari server: " + result.message);
+        }
+      } catch (error) {
+        console.error("Error loadAdminData:", error);
+        const tbodyCalon = document.getElementById("table-calon-rows");
+        if (tbodyCalon) {
+          tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-red-500"><i class="fa fa-exclamation-triangle mr-2"></i>Gagal memuat data. Periksa koneksi atau URL API Anda.</td></tr>`;
+        }
+      }
+    }
+
+
+
+
+
+  </script>
+
+<div id="modal-detail-calon" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border-t-8 border-blue-700">
+      <div class="p-6 border-b flex justify-between items-center bg-slate-50">
+        <h3 class="text-xl font-bold text-slate-800"><i class="fa fa-info-circle text-blue-600 mr-2"></i>Detail Calon Pegawai</h3>
+        <button onclick="closeModalDetail()" class="text-slate-400 hover:text-red-600 transition"><i class="fa fa-times text-xl"></i></button>
+      </div>
+      <div class="p-6 space-y-4" id="modal-calon-body">
+        </div>
+      <div class="p-4 bg-slate-50 border-t flex justify-end">
+        <button onclick="closeModalDetail()" class="px-5 py-2 bg-slate-200 hover:bg-slate-300 rounded-lg text-slate-700 font-medium transition">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
