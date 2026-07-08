@@ -248,6 +248,9 @@
         </div>
       </div>
 
+
+
+
       <div id="tab-data-pegawai" class="admin-tab-content hidden">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
           <h2 class="text-2xl font-bold">Data Pegawai Aktif</h2>
@@ -257,7 +260,13 @@
           <table class="w-full text-left text-sm border-collapse">
             <thead>
               <tr class="bg-slate-100 border-b text-slate-600">
-                <th class="p-4">Aksi</th><th class="p-4">NIPY</th><th class="p-4">Nama Pegawai</th><th class="p-4">JK</th><th class="p-4">Unit Kerja</th><th class="p-4">Jabatan</th>
+                <th class="p-4 text-center">Aksi</th>
+                <th class="p-4 text-center">Foto</th>
+                <th class="p-4 text-center">NIPY</th>
+                <th class="p-4 text-center">Nama Pegawai</th>
+                <th class="p-4 text-center">JK</th>
+                <th class="p-4 text-center">Unit Kerja</th>
+                <th class="p-4 text-center">Jabatan</th>
               </tr>
             </thead>
             <tbody id="table-pegawai-rows"></tbody>
@@ -590,16 +599,6 @@
   //TAMPILKAN LOGIN PAGE
   //====================
   //====================
-  //  function tampilkanLoginSaja() {
-  //    const formTarget = document.getElementById("form-calon-page");
-  //    if (formTarget) {
-  //      HTMLFormElement.prototype.reset.call(formTarget);
-  //    }
-  //  }
-
-
-
-   // Fungsi untuk menampilkan HANYA Form Login dan membersihkan Form Registrasi
     function tampilkanLoginSaja() {
       // 1. Sembunyikan kontainer registrasi
       const regContainer = document.getElementById("form-calon-page") || document.getElementById("form-registrasi-wrapper");
@@ -661,9 +660,13 @@
       const target = document.getElementById('pegawai-' + tabName + '-content');
       if (target) target.classList.remove('hidden');
     }
+   
+    
 
-    //FUNGSI LOAD DATA LENGKAP PEGAWAI TAMPIL DI FORM
-    //===============================================
+
+    //FUNGSI LOAD DATA LENGKAP PEGAWAI TAMPIL DI FORM (ROLE PEGAWAI)
+    //==============================================================
+    //==============================================================
     async function loadPegawaiProfileData(username) {
       try {
         // Tampilkan efek loading cursor sementara
@@ -1134,8 +1137,10 @@ async function submitCalonPegawai(event) {
     // Logika pengisian diagram secara responsif dengan Chart.js
     // Logika penyaringan tabel (pencarian kata kunci)
 
-// 1. FUNGSI UNTUK MENAMPILKAN DATA CALON PEGAWAI KE TABEL
+    //FUNGSI UNTUK MENAMPILKAN DATA CALON PEGAWAI KE TABEL
     // Fungsi ini dipanggil setelah Admin sukses login & data diunduh dari Apps Script
+    //=================================================================================
+    //=================================================================================
     function renderTableCalonPegawai(dataCalon) {
       globalData.calonPegawai = dataCalon; // Simpan ke global variable
       const tbody = document.getElementById("table-calon-rows");
@@ -1265,60 +1270,222 @@ async function submitCalonPegawai(event) {
     }
 
 
-    // =========================================================
-    // FUNGSI UNTUK MENGAMBIL DATA SPREADSHEET (ADMIN)
-    // =========================================================
+    // =========================================================================
+    // FUNGSI UTAMA: UPDATE PADA LOAD ADMIN DATA 
+    // UNTUK SHEET CALON PEGAWAI, SHEET PEGAWAI
+    // =========================================================================
     async function loadAdminData() {
       try {
-        // Tampilkan pesan loading sementara di dalam tabel calon pegawai
         const tbodyCalon = document.getElementById("table-calon-rows");
-        if (tbodyCalon) {
-          tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500"><i class="fa fa-spinner fa-spin mr-2"></i>Memuat data calon pegawai...</td></tr>`;
-        }
+        const tbodyPegawai = document.getElementById("table-pegawai-rows");
+        if (tbodyCalon) tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500"><i class="fa fa-spinner fa-spin mr-2"></i>Memuat data calon pegawai...</td></tr>`;
+        if (tbodyPegawai) tbodyPegawai.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-500"><i class="fa fa-spinner fa-spin mr-2"></i>Memuat data pegawai aktif...</td></tr>`;
 
         // Kirim request POST ke Apps Script untuk mengambil data admin/dashboard
         const response = await fetch(API_URL, {
           method: 'POST',
-          body: JSON.stringify({
-            action: 'getAdminData' // Aksi ini harus sesuai dengan yang ada di doPost Apps Script Anda
-          }),
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8',
-          }
-        });
-
-        const result = await response.json();
+          body: JSON.stringify({action: 'getAdminData'}), // Aksi ini harus sesuai dengan yang ada di doPost Apps Script Anda
+          
+          headers: {'Content-Type': 'text/plain;charset=utf-8',}});
+          const result = await response.json();
 
         if (result.status === "SUCCESS") {
-          // Masukkan data calon pegawai ke fungsi render tabel yang sudah kita buat sebelumnya
-          // Pastikan properti "calonPegawai" sesuai dengan nama object yang dikirim dari Google Apps Script Anda
-          if (result.data && result.data.calonPegawai) {
-            renderTableCalonPegawai(result.data.calonPegawai);
-          } else {
-            tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Struktur data 'calonPegawai' tidak ditemukan.</td></tr>`;
-          }
+            globalData.calonPegawai = result.data.calonPegawai;
+            globalData.pegawai = result.data.pegawai;
+            globalData.keluarga = result.data.keluarga; // Sangat penting untuk detail profil nanti
+
+           if (result.data && result.data.calonPegawai) {renderTableCalonPegawai(result.data.calonPegawai);}
+           if (result.data && result.data.pegawai) {renderTablePegawaiAktif(result.data.pegawai);}
+       else if (tbodyPegawai) {tbodyPegawai.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Struktur data 'pegawai' tidak ditemukan.</td></tr>`;}
+       
+        //====================================================================================== 
+        //RUANG PENTING UNTUK TAB LAINNYA
+        // NB: Jika Anda punya fungsi render untuk data pegawai tetap atau infografis, 
+        // Anda bisa memanggilnya juga di sini, contoh:
+        // if (result.data.pegawaiTetap) { renderTablePegawaiTetap(result.data.pegawaiTetap); }
+        //=====================================================================================
+
           
-          // NB: Jika Anda punya fungsi render untuk data pegawai tetap atau infografis, 
-          // Anda bisa memanggilnya juga di sini, contoh:
-          // if (result.data.pegawaiTetap) { renderTablePegawaiTetap(result.data.pegawaiTetap); }
+        } else {alert("Gagal mengambil data dari server: " + result.message);}
+  } catch (error) {console.error("Error loadAdminData:", error);
+    if (tbodyPegawai) tbodyPegawai.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500"><i class="fa fa-exclamation-triangle mr-2"></i>Gagal memuat data pegawai.</td></tr>`;
+  }
+}
+
+// =========================================================================
+// REPLIKASI 1: FUNGSI UNTUK MENAMPILKAN DATA PEGAWAI AKTIF KE TABEL
+// =========================================================================
+function renderTablePegawaiAktif(dataPegawai) {
+  const tbody = document.getElementById("table-pegawai-rows");
+  tbody.innerHTML = "";
+
+  if (!dataPegawai || dataPegawai.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Tidak ada data pegawai aktif di database.</td></tr>`;
+    return;
+  }
+
+  dataPegawai.forEach(pegawai => {
+    // Jalankan logika penanganan foto seperti pola calon pegawai Anda
+    const fotoUrl = pegawai["URL FOTO"] || "https://via.placeholder.com/150/1e40af/ffffff?text=FOTO";
+    
+    const tr = document.createElement("tr");
+    tr.className = "border-b hover:bg-slate-50 transition";
+    
+    // Susunan kolom: Aksi, Foto, NIPY, Nama Pegawai, JK, Unit Kerja, Jabatan
+    tr.innerHTML = `
+      <td class="p-4 text-center">
+        <button onclick="lihatDetailPegawai('${pegawai["USERNAME"]}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-semibold transition flex items-center mx-auto shadow-sm">
+          <i class="fa fa-eye mr-1"></i> Lihat Detail
+        </button>
+      </td>
+      <td class="p-4 text-center">
+        <img src="${fotoUrl}" alt="Foto" class="w-10 h-10 object-cover rounded-full border mx-auto">
+      </td>
+      <td class="p-4 text-center font-semibold text-slate-700">${pegawai["NIPY"] || '-'}</td>
+      <td class="p-4 font-semibold text-slate-800">${pegawai["NAMA PEGAWAI"]}</td>
+      <td class="p-4 text-center text-slate-600">${pegawai["JK"] || '-'}</td>
+      <td class="p-4 text-center text-slate-600">${pegawai["UNIT KERJA"] || '-'}</td>
+      <td class="p-4 text-center text-slate-600">${pegawai["JABATAN"] || '-'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// =========================================================================
+// REPLIKASI 2: FUNGSI TOMBOL LIHAT DETAIL PEGAWAI AKTIF (+ KELUARGA)
+// =========================================================================
+function lihatDetailPegawai(username) {
+  const pegawai = globalData.pegawai.find(p => p.USERNAME === username);
+  if (!pegawai) return;
+
+  // Tarik data keluarga dari data global berdasarkan NAMA PEGAWAI
+  const keluarga = globalData.keluarga ? globalData.keluarga.find(k => k["NAMA PEGAWAI"] === pegawai["NAMA PEGAWAI"]) : null;
+
+  const modalBody = document.getElementById("modal-pegawai-body");
+  
+  // Kerangka visualisasi profil lengkap berbasis grid 2 kolom (mirip pola Anda)
+  let htmlContent = `
+    <div class="flex items-center space-x-4 p-4 bg-blue-50 rounded-xl mb-4">
+      <img src="${pegawai["URL FOTO"] || 'https://via.placeholder.com/150/1e40af/ffffff?text=FOTO'}" class="w-16 h-16 object-cover rounded-full border-2 border-blue-400">
+      <div>
+        <h4 class="text-lg font-bold text-slate-800">${pegawai["NAMA PEGAWAI"]}</h4>
+        <p class="text-sm text-slate-500">NIPY: ${pegawai["NIPY"] || '-'} | Jabatan: ${pegawai["JABATAN"] || '-'}</p>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mb-4">
+      <div><p class="text-xs text-slate-400 font-medium">Jenis Kelamin</p><p class="font-semibold">${pegawai["JK"] === 'L' ? 'Laki-Laki' : 'Perempuan'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Agama</p><p class="font-semibold">${pegawai["AGAMA"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Tempat, Tanggal Lahir</p><p class="font-semibold">${pegawai["TEMPAT LAHIR"] || '-'}, ${pegawai["TANGGAL LAHIR"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Usia</p><p class="font-semibold">${pegawai["USIA"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">No HP / WA</p><p class="font-semibold">${pegawai["NO HP"] || '-'}</p></div>
+      <div class="sm:col-span-2"><p class="text-xs text-slate-400 font-medium">Alamat</p><p class="font-semibold">${pegawai["ALAMAT"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Pendidikan Terakhir</p><p class="font-semibold">${pegawai["PENDIDIKAN"]} - ${pegawai["JURUSAN"]}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Status Hubungan</p><p class="font-semibold">Status: ${pegawai["K/TK"]} | Jml Anak: ${pegawai["JML ANAK"] || '0'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Unit Kerja / Pekerjaan</p><p class="font-semibold">${pegawai["UNIT KERJA"] || '-'} / ${pegawai["PEKERJAAN"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Mulai Kerja</p><p class="font-semibold">${pegawai["MULAI KERJA"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Status Kepegawaian</p><p class="font-semibold">${pegawai["STATUS"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Pangkat / TMT Pangkat</p><p class="font-semibold">${pegawai["PANGKAT"] || '-'} (${pegawai["TMT PANGKAT"] || '-'})</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Berkala Terakhir</p><p class="font-semibold">${pegawai["BERKALA TERAKHIR"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">NUPTK</p><p class="font-semibold">${pegawai["NUPTK"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">No Sertifikasi</p><p class="font-semibold">${pegawai["NO SERTIFIKASI"] || '-'}</p></div>
+      <div><p class="text-xs text-slate-400 font-medium">Tahun Sertifikasi</p><p class="font-semibold">${pegawai["TAHUN SERTIFIKASI"] || '-'}</p></div>
+    </div>
+    </div>
+  `;
+
+  // LOGIKA TAMBAHAN: Tampilkan Data Keluarga jika pegawai berstatus Kawin (K)
+    if (pegawai["K/TK"] === "K" || pegawai["K/TK"] === "k") {
+    htmlContent += `
+      <div class="mt-4 pt-4 border-t border-slate-200">
+        <h5 class="text-sm font-bold text-blue-700 mb-2"><i class="fa fa-users mr-1"></i> Data Hubungan Keluarga</h5>
+    `;
+    
+    if (keluarga) {
+      htmlContent += `
+        <div class="bg-slate-50 p-3 rounded-lg text-sm space-y-3 border">
           
-        } else {
-          alert("Gagal mengambil data dari server: " + result.message);
-        }
-      } catch (error) {
-        console.error("Error loadAdminData:", error);
-        const tbodyCalon = document.getElementById("table-calon-rows");
-        if (tbodyCalon) {
-          tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-red-500"><i class="fa fa-exclamation-triangle mr-2"></i>Gagal memuat data. Periksa koneksi atau URL API Anda.</td></tr>`;
-        }
-      }
+          <!-- Data Pasangan -->
+          <div class="border-b pb-2 last:border-0 last:pb-0">
+            <p class="text-xs text-slate-400 font-medium">Nama Suami/Istri</p>
+            <p class="font-semibold text-slate-700">${keluarga["NAMA PASANGAN"] || '-'} | Lahir: ${keluarga["TANGGAL LAHIR PASANGAN"] || '-'} | Usia: ${keluarga["USIA PASANGAN"] || '-'}</p>
+          </div>
+          
+          <!-- Data Anak Kesatu -->
+          ${keluarga["NAMA ANAK KESATU"] ? `
+          <div class="border-b pb-2 last:border-0 last:pb-0">
+            <p class="text-xs text-slate-400 font-medium">Nama Anak Kesatu</p>
+            <p class="font-semibold text-slate-700">${keluarga["NAMA ANAK KESATU"]} | Lahir: ${keluarga["TANGGAL LAHIR ANAK KESATU"] || '-'} | Usia: ${keluarga["USIA ANAK KESATU"] || '-'}</p>
+          </div>
+          ` : ''}
+          
+          <!-- Data Anak Kedua -->
+          ${keluarga["NAMA ANAK KEDUA"] ? `
+          <div class="border-b pb-2 last:border-0 last:pb-0">
+            <p class="text-xs text-slate-400 font-medium">Nama Anak Kedua</p>
+            <p class="font-semibold text-slate-700">${keluarga["NAMA ANAK KEDUA"]} | Lahir: ${keluarga["TANGGAL LAHIR ANAK KEDUA"] || '-'} | Usia: ${keluarga["USIA ANAK KEDUA"] || '-'}</p>
+          </div>
+          ` : ''}
+          
+          <!-- Data Anak Ketiga -->
+          ${keluarga["NAMA ANAK KETIGA"] ? `
+          <div class="border-b pb-2 last:border-0 last:pb-0">
+            <p class="text-xs text-slate-400 font-medium">Nama Anak Ketiga</p>
+            <p class="font-semibold text-slate-700">${keluarga["NAMA ANAK KETIGA"]} | Lahir: ${keluarga["TANGGAL LAHIR ANAK KETIGA"] || '-'} | Usia: ${keluarga["USIA ANAK KETIGA"] || '-'}</p>
+          </div>
+          ` : ''}
+          
+          <!-- Data Anak Keempat -->
+          ${keluarga["NAMA ANAK KEEMPAT"] ? `
+          <div class="border-b pb-2 last:border-0 last:pb-0">
+            <p class="text-xs text-slate-400 font-medium">Nama Anak Keempat</p>
+            <p class="font-semibold text-slate-700">${keluarga["NAMA ANAK KEEMPAT"]} | Lahir: ${keluarga["TANGGAL LAHIR ANAK KEEMPAT"] || '-'} | Usia: ${keluarga["USIA ANAK KEEMPAT"] || '-'}</p>
+          </div>
+          ` : ''}
+
+        </div>
+      `;
+    } else {
+      htmlContent += `<p class="text-xs text-amber-600 bg-amber-50 p-2.5 rounded border border-amber-200 italic">Status Kawin (K), tetapi pegawai belum melengkapi rincian data di Sheet Keluarga.</p>`;
     }
+    
+    htmlContent += `</div>`;
+  }
+
+
+  modalBody.innerHTML = htmlContent;
+  document.getElementById("modal-detail-pegawai").classList.remove("hidden");
+}
+
+function closeModalDetailPegawai() {
+  document.getElementById("modal-detail-pegawai").classList.add("hidden");
+}
+
+
+
+
 
 
 
 
 
   </script>
+<div id="modal-detail-pegawai" class="fixed inset-0 bg-slate-950 bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto flex flex-col">
+    <div class="p-4 border-b flex items-center justify-between bg-slate-50 rounded-t-2xl">
+      <h3 class="text-md font-bold text-slate-800"><i class="fa fa-id-card text-blue-600 mr-2"></i>Profil Lengkap Pegawai</h3>
+      <button onclick="closeModalDetailPegawai()" class="text-slate-400 hover:text-slate-600 p-1 text-2xl leading-none">&times;</button>
+    </div>
+    <div id="modal-pegawai-body" class="p-6 overflow-y-auto">
+      </div>
+    <div class="p-4 border-t bg-slate-50 flex justify-end rounded-b-2xl">
+      <button onclick="closeModalDetailPegawai()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl text-xs transition">
+        Tutup Profil
+      </button>
+    </div>
+  </div>
+</div>
+
 
 <div id="modal-detail-calon" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border-t-8 border-blue-700">
