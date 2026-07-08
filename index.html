@@ -348,10 +348,11 @@
               <div><label class="block text-xs font-semibold text-slate-500 mb-1">Nama Lengkap</label><input type="text" id="p_nama" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
               <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tempat Lahir</label><input type="text" id="p_tempat_lahir" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
               <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tanggal Lahir</label><input type="date" id="p_tgl_lahir" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Usia</label><input type="text" id="p_usia" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
               <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jenis Kelamin</label><select id="p_jk" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"><option value="L">Laki-Laki</option><option value="P">Perempuan</option></select></div>
               <div><label class="block text-xs font-semibold text-slate-500 mb-1">Agama</label><input type="text" id="p_agama" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
               <div><label class="block text-xs font-semibold text-slate-500 mb-1">No HP / WA</label><input type="text" id="p_nohp" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
-              <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-500 mb-1">Alamat Domisili</label><textarea id="p_alamat" disabled rows="2" class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></textarea></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Alamat Domisili</label><textarea id="p_alamat" disabled rows="2" class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></textarea></div>
             </div>
           </div>
         </div>
@@ -407,33 +408,33 @@
               <table class="w-full text-left border-collapse text-sm">
                 <thead>
                   <tr class="border-b text-slate-500 uppercase text-xs font-bold bg-slate-100">
-                    <th class="p-2 w-24">Anak Ke</th>
+                    <th class="p-2 w-12">Anak</th>
                     <th class="p-2">Nama Anak</th>
-                    <th class="p-2 w-48">Tanggal Lahir</th>
+                    <th class="p-2 w-24">Tanggal Lahir</th>
                     <th class="p-2 w-28">Usia</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y bg-white">
                   <tr>
-                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Kesatu</td>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-1</td>
                     <td class="p-2"><input type="text" id="p_nama_anak1" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="date" id="p_tgl_lahir_anak1" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="text" id="p_usia_anak1" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
                   </tr>
                   <tr>
-                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Kedua</td>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-2</td>
                     <td class="p-2"><input type="text" id="p_nama_anak2" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="date" id="p_tgl_lahir_anak2" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="text" id="p_usia_anak2" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
                   </tr>
                   <tr>
-                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Ketiga</td>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-3</td>
                     <td class="p-2"><input type="text" id="p_nama_anak3" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="date" id="p_tgl_lahir_anak3" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="text" id="p_usia_anak3" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
                   </tr>
                   <tr>
-                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Keempat</td>
+                    <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-4</td>
                     <td class="p-2"><input type="text" id="p_nama_anak4" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="date" id="p_tgl_lahir_anak4" disabled class="w-full p-2 border rounded-md text-sm outline-none"></td>
                     <td class="p-2"><input type="text" id="p_usia_anak4" disabled class="w-full p-2 bg-slate-50 border rounded-md text-sm text-slate-500 outline-none" placeholder="-"></td>
@@ -698,7 +699,7 @@
             const [d, m, y] = profil["TANGGAL LAHIR"].split("-");
             document.getElementById("p_tgl_lahir").value = `${y}-${m}-${d}`;
           }
-          
+          document.getElementById("p_usia").value = profil["USIA"] || "";
           document.getElementById("p_jk").value = profil["JK"] || "L";
           document.getElementById("p_agama").value = profil["AGAMA"] || "";
           document.getElementById("p_nohp").value = profil["NO HP"] || "";
@@ -748,27 +749,27 @@
             // 1. Data Pasangan
             document.getElementById("p_nama_pasangan").value = keluarga["NAMA PASANGAN"] || "";
             document.getElementById("p_tgl_lahir_pasangan").value = formatToHTMLDate(keluarga["TANGGAL LAHIR PASANGAN"]);
-            document.getElementById("p_usia_pasangan").value = keluarga["USIA PASANGAN"] ? keluarga["USIA PASANGAN"] + " Tahun" : "-";
-
+            document.getElementById("p_usia_pasangan").value = keluarga["USIA PASANGAN"] ? keluarga["USIA PASANGAN"] : "-";
+            
             // 2. Data Anak Kesatu
             document.getElementById("p_nama_anak1").value = keluarga["NAMA ANAK KESATU"] || "";
             document.getElementById("p_tgl_lahir_anak1").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KESATU"]);
-            document.getElementById("p_usia_anak1").value = keluarga["USIA ANAK KESATU"] ? keluarga["USIA ANAK KESATU"] + " Tahun" : "-";
+            document.getElementById("p_usia_anak1").value = keluarga["USIA ANAK KESATU"] ? keluarga["USIA ANAK KESATU"] : "-";
 
             // 3. Data Anak Kedua
             document.getElementById("p_nama_anak2").value = keluarga["NAMA ANAK KEDUA"] || "";
             document.getElementById("p_tgl_lahir_anak2").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KEDUA"]);
-            document.getElementById("p_usia_anak2").value = keluarga["USIA ANAK KEDUA"] ? keluarga["USIA ANAK KEDUA"] + " Tahun" : "-";
+            document.getElementById("p_usia_anak2").value = keluarga["USIA ANAK KEDUA"] ? keluarga["USIA ANAK KEDUA"] : "-";
 
             // 4. Data Anak Ketiga
             document.getElementById("p_nama_anak3").value = keluarga["NAMA ANAK KETIGA"] || "";
             document.getElementById("p_tgl_lahir_anak3").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KETIGA"]);
-            document.getElementById("p_usia_anak3").value = keluarga["USIA ANAK KETIGA"] ? keluarga["USIA ANAK KETIGA"] + " Tahun" : "-";
+            document.getElementById("p_usia_anak3").value = keluarga["USIA ANAK KETIGA"] ? keluarga["USIA ANAK KETIGA"] : "-";
 
             // 5. Data Anak Keempat
             document.getElementById("p_nama_anak4").value = keluarga["NAMA ANAK KEEMPAT"] || "";
             document.getElementById("p_tgl_lahir_anak4").value = formatToHTMLDate(keluarga["TANGGAL LAHIR ANAK KEEMPAT"]);
-            document.getElementById("p_usia_anak4").value = keluarga["USIA ANAK KEEMPAT"] ? keluarga["USIA ANAK KEEMPAT"] + " Tahun" : "-";
+            document.getElementById("p_usia_anak4").value = keluarga["USIA ANAK KEEMPAT"] ? keluarga["USIA ANAK KEEMPAT"] : "-";
 
           } else {
             // Jika data keluarga kosong di spreadsheet, bersihkan semua field
