@@ -257,22 +257,51 @@
           <input type="text" onkeyup="searchTable('table-pegawai-rows', this.value)" class="mt-2 sm:mt-0 px-4 py-2 border rounded-lg text-sm w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Pegawai...">
         </div>
         <div class="bg-white rounded-xl shadow-sm overflow-x-auto">
+          <!-- text-left di bawah ini memastikan isi tabel (tbody) otomatis rata kiri -->
           <table class="w-full text-left text-sm border-collapse">
             <thead>
               <tr class="bg-slate-100 border-b text-slate-600">
+                <th class="p-4">Foto</th>
+                <th class="p-4">NIPY</th>
+                <th class="p-4">Nama Pegawai</th>
+                <th class="p-4">JK</th>
+                <th class="p-4">Unit Kerja</th>
+                <th class="p-4">Jabatan</th>
                 <th class="p-4 text-center">Aksi</th>
-                <th class="p-4 text-center">Foto</th>
-                <th class="p-4 text-center">NIPY</th>
-                <th class="p-4 text-center">Nama Pegawai</th>
-                <th class="p-4 text-center">JK</th>
-                <th class="p-4 text-center">Unit Kerja</th>
-                <th class="p-4 text-center">Jabatan</th>
               </tr>
             </thead>
             <tbody id="table-pegawai-rows"></tbody>
           </table>
         </div>
       </div>
+
+
+
+      <div id="tab-kelola-pegawai" class="admin-tab-content hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+          <h2 class="text-2xl font-bold">Kelola Data Pegawai</h2>
+          <input type="text" onkeyup="searchTable('table-kelola-rows', this.value)" class="mt-2 sm:mt-0 px-4 py-2 border rounded-lg text-sm w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cari Pegawai...">
+        </div>
+        <div class="bg-white rounded-xl shadow-sm overflow-x-auto">
+          <!-- text-left di bawah ini memastikan isi tabel (tbody) otomatis rata kiri -->
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-100 border-b text-slate-600">
+                <th class="p-4">Foto</th>
+                <th class="p-4">NIPY</th>
+                <th class="p-4">Nama Pegawai</th>
+                <th class="p-4">JK</th>
+                <th class="p-4">Unit Kerja</th>
+                <th class="p-4">Jabatan</th>
+                <th class="p-4 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="table-kelola-rows"></tbody>
+          </table>
+        </div>
+      </div>
+
+
 
       <div id="tab-validasi-pegawai" class="admin-tab-content hidden">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
@@ -327,8 +356,7 @@
     
     
     <div class="flex-1 p-6 md:p-10 bg-slate-50 overflow-y-auto">
-    
-    <div id="pegawai-profil-saya-content" class="pegawai-tab-content space-y-6">
+      <div id="pegawai-profil-saya-content" class="pegawai-tab-content space-y-6">
       <div class="flex justify-between items-center border-b pb-4">
         <h2 class="text-2xl font-bold text-slate-800">Profil Saya</h2>
         <button onclick="enableEditProfil()" id="btn-edit-profil" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition flex items-center shadow-sm">
@@ -373,6 +401,7 @@
             <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jabatan Resmi</label><input type="text" id="p_jabatan" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
             <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pekerjaan</label><input type="text" id="p_pekerjaan" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
             <div><label class="block text-xs font-semibold text-slate-500 mb-1">Unit Kerja</label><input type="text" id="p_unit" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
+            <div><label class="block text-xs font-semibold text-slate-500 mb-1">Status Kepegawaian</label><input type="text" id="p_status" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
             <div><label class="block text-xs font-semibold text-slate-500 mb-1">Mulai Kerja</label><input type="date" id="p_mulai_kerja" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
             <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pangkat / Golongan</label><input type="text" id="p_pangkat" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
             <div><label class="block text-xs font-semibold text-slate-500 mb-1">TMT Pangkat</label><input type="date" id="p_tmt_pangkat" disabled class="w-full p-2.5 border rounded-lg bg-slate-50 outline-none text-sm font-medium"></div>
@@ -452,7 +481,6 @@
               </table>
             </div>
           </div>
-
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
@@ -471,8 +499,8 @@
     </div>
 
     <div id="pegawai-riwayat-kerja-content" class="pegawai-tab-content hidden space-y-4">
-      <h2 class="text-2xl font-bold">Riwayat Kerja (Guru)</h2>
-      <p class="text-sm text-slate-500">Fitur Riwayat Mengajar, Tugas Tambahan, dan Inovasi Pembelajaran sedang dalam tahap pengembangan konsep detail.</p>
+      <h2 class="text-2xl font-bold">Riwayat Kerja</h2>
+      <p class="text-sm text-slate-500">Fitur Riwayat Mengajar, Tugas Tambahan, dan sedang dalam tahap pengembangan konsep detail.</p>
     </div>
     
     <div id="pegawai-prestasi-content" class="pegawai-tab-content hidden space-y-4">
@@ -482,7 +510,7 @@
 
     <div id="pegawai-pengembangan-content" class="pegawai-tab-content hidden space-y-4">
       <h2 class="text-2xl font-bold">Pengembangan Profesi</h2>
-      <p class="text-sm text-slate-500">Fitur riwayat pelatihan dan sertifikasi profesi sedang dalam tahap pengembangan konsep detail.</p>
+      <p class="text-sm text-slate-500">Fitur riwayat pelatihan, Sertifikasi Profesi, dan Inovasi Pembelajaran sedang dalam tahap pengembangan konsep detail.</p>
     </div>
 
     <div id="pegawai-kinerja-content" class="pegawai-tab-content hidden space-y-4">
@@ -551,6 +579,7 @@
           
           if (userData.role === "Admin") {
             // --- JIKA LOGIN SEBAGAI ADMIN ---
+            sessionStorage.setItem("namaAdminAktif", userData.nama);
             alert("Berhasil Login! Selamat datang Admin: " + userData.nama);
             showPage("admin-dashboard");
             
@@ -623,6 +652,7 @@
     function logout() {
       const konfirmasi = confirm("Apakah Anda yakin ingin keluar?");
       if (konfirmasi) {
+        sessionStorage.removeItem("namaAdminAktif");
         // Kembalikan ke halaman login
         showPage("login-page");
         // Hapus nama profil di navbar pegawai
@@ -664,7 +694,7 @@
     
 
 
-    //FUNGSI LOAD DATA LENGKAP PEGAWAI TAMPIL DI FORM (ROLE PEGAWAI)
+    //FUNGSI LOAD DATA LENGKAP PEGAWAI TAMPIL DI FORM (OLEH PEGAWAI)
     //==============================================================
     //==============================================================
     async function loadPegawaiProfileData(username) {
@@ -712,6 +742,7 @@
           document.getElementById("p_jabatan").value = profil["JABATAN"] || "";
           document.getElementById("p_pekerjaan").value = profil["PEKERJAAN"] || "";
           document.getElementById("p_unit").value = profil["UNIT KERJA"] || "";
+          document.getElementById("p_status").value = profil["STATUS"] || "";
           
           if (profil["MULAI KERJA"]) {
             const [d, m, y] = profil["MULAI KERJA"].split("-");
@@ -848,8 +879,9 @@
       document.getElementById("btn-edit-profil").classList.remove("hidden");
     }
 
-    //Kirim Perubahan Update Mandiri ke Server Google Sheets
-    //======================================================
+    //FUNGSI SIMPAN PERUBAHAN DATA OLEH PEGAWAI YANG MELAKUKAN UPDATE DATA MANDIRI
+    //============================================================================
+    //============================================================================
     async function simpanPerubahanProfil(event) {
       event.preventDefault();
 
@@ -866,11 +898,9 @@
       };
 
       try {
-        // =====================================================================
-        // PROSES CEK APAKAH PEGAWAI BERMANDIRI MENGGANTI FOTO
-        // =====================================================================
+        // PROSES CEK APAKAH PEGAWAI BERMANDIRI MENGGANTI FOTO OLEH PEGAWAI
         const fileInput = document.getElementById("p_foto_file");
-        let fotoBlobData = { base64: "", name: "", type: "" }; // Default kosong jika tidak ganti foto
+        let fotoBlobData = { base64: "", name: "", type: "" };
 
         if (fileInput && fileInput.files.length > 0) {
           const fileTerpilih = fileInput.files[0];
@@ -879,11 +909,9 @@
             alert("Gagal: Ukuran foto baru terlalu besar! Maksimal 2MB.");
             return; 
           }
-          // Gunakan fungsi fileToBase64 yang sudah kita buat sebelumnya
           fotoBlobData = await fileToBase64(fileTerpilih); 
         }
-        // =====================================================================
-
+        
         const payloadData = {
           "NIPY": document.getElementById("p_nipy").value,
           "USERNAME": document.getElementById("p_username").value,          
@@ -892,6 +920,7 @@
           "JK": document.getElementById("p_jk").value,
           "MULAI KERJA": formatToSheetDate(document.getElementById("p_mulai_kerja").value),
           "UNIT KERJA": document.getElementById("p_unit").value,
+          "STATUS": document.getElementById("p_status").value,
           "PEKERJAAN": document.getElementById("p_pekerjaan").value,
           "JABATAN": document.getElementById("p_jabatan").value,
           "PANGKAT": document.getElementById("p_pangkat").value,
@@ -910,7 +939,7 @@
           "JML ANAK": document.getElementById("p_jml_anak").value,
           "PASSWORD": document.getElementById("p_password").value,
           "URL FOTO": document.getElementById("p_url_foto").value, // Mengirim URL lama sebagai fallback
-          
+          "DIUPDATE OLEH": document.getElementById("p_nama").value,
           "FOTO_BLOB": fotoBlobData, 
           
           "DATA_KELUARGA": {
@@ -1017,51 +1046,40 @@ function fileToBase64(file) {
 }
 
 
-//=====================
-// SUBMIT CALON PEGAWAI - VERSI AMAN & SINKRON
-//=====================
+//=============================================================
+// FUNGSI CALON PEGAWAI SUBMIT OLEH SEMUA CALON
+//=============================================================
 async function submitCalonPegawai(event) {
   event.preventDefault(); // Mencegah halaman me-refresh
   
   const btnSubmit = document.getElementById("btn-submit-calon");
   const originalText = btnSubmit.innerHTML;
   
-  // Ubah tombol menjadi mode loading dan ubah kursor mouse
   btnSubmit.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> Mengirim...';
   btnSubmit.disabled = true;
   document.body.style.cursor = 'wait';
 
   try {
-    // =========================================================================
     // PROSES BACA FOTO BARU
-    // =========================================================================
     const fileInput = document.getElementById("calon_foto"); 
-    let fotoBlobData = { base64: "", name: "", type: "" }; // Default kosong jika tidak upload
+    let fotoBlobData = { base64: "", name: "", type: "" };
 
     if (fileInput && fileInput.files.length > 0) {
       const fileTerpilih = fileInput.files[0];
-
-      // Validasi Ukuran File (Maksimal 2MB = 2 * 1024 * 1024 bytes)
+      
       if (fileTerpilih.size > 2 * 1024 * 1024) {
         alert("Gagal: Ukuran pas foto terlalu besar! Maksimal 2MB.");
-        return; // Menghentikan fungsi
+        return;
       }
 
-      // Jalankan fungsi pembaca file dan tunggu sampai selesai konversi
       fotoBlobData = await fileToBase64(fileTerpilih);
-      
-      // ==========================================
-      // KODE DETEKSI SEMENTARA (SUNTIK DI SINI)
-      // ==========================================
       console.log("=== CEK DATA FOTO SEBELUM DIKIRIM ===");
       console.log("Nama File:", fotoBlobData.name);
       console.log("Tipe File:", fotoBlobData.type);
       console.log("Panjang Teks Base64:", fotoBlobData.base64 ? fotoBlobData.base64.length : 0);
-      // ==========================================
+     
     }
-    // =========================================================================
 
-    // Mengumpulkan payload berdasarkan header kolom di Sheet "Calon Pegawai"
     const payloadData = {
       "NAMA PEGAWAI": document.getElementById("calon_nama").value,
       "TEMPAT LAHIR": document.getElementById("calon_tempat_lahir").value,
@@ -1137,8 +1155,9 @@ async function submitCalonPegawai(event) {
     // Logika pengisian diagram secara responsif dengan Chart.js
     // Logika penyaringan tabel (pencarian kata kunci)
 
-    //FUNGSI UNTUK MENAMPILKAN DATA CALON PEGAWAI KE TABEL
-    // Fungsi ini dipanggil setelah Admin sukses login & data diunduh dari Apps Script
+
+
+    // FUNGSI UNTUK MENAMPILKAN DATA CALON PEGAWAI KE TABEL
     //=================================================================================
     //=================================================================================
     function renderTableCalonPegawai(dataCalon) {
@@ -1181,7 +1200,9 @@ async function submitCalonPegawai(event) {
       });
     }
 
-    // 2. FUNGSI TOMBOL: LIHAT DETAIL (Menampilkan Modal Pop-up)
+    // FUNGSI UNTUK MELIHAT DETAIL CALON PEGAWAI OLEH ADMIN UNTUK VALIDASI PEGAWAI
+    //============================================================================
+    //============================================================================
     function lihatDetailCalon(username) {
       const calon = globalData.calonPegawai.find(c => c.USERNAME === username);
       if (!calon) return;
@@ -1272,19 +1293,27 @@ async function submitCalonPegawai(event) {
 
     // =========================================================================
     // FUNGSI UTAMA: UPDATE PADA LOAD ADMIN DATA 
-    // UNTUK SHEET CALON PEGAWAI, SHEET PEGAWAI
+    // UNTUK SHEET CALON PEGAWAI, SHEET PEGAWAI (TAB PEGAWAI, TAB KELOLA PEGAWAI) 
     // =========================================================================
     async function loadAdminData() {
       try {
         const tbodyCalon = document.getElementById("table-calon-rows");
         const tbodyPegawai = document.getElementById("table-pegawai-rows");
+        const tbodyKelola = document.getElementById("table-kelola-rows");
+        //Bisa di tambah untuk TAB yang lainnya
+        //=====================================
+
+        
         if (tbodyCalon) tbodyCalon.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500"><i class="fa fa-spinner fa-spin mr-2"></i>Memuat data calon pegawai...</td></tr>`;
         if (tbodyPegawai) tbodyPegawai.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-500"><i class="fa fa-spinner fa-spin mr-2"></i>Memuat data pegawai aktif...</td></tr>`;
+        if (tbodyKelola) tbodyKelola.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-500"><i class="fa fa-spinner fa-spin mr-2"></i>Memuat data pegawai aktif...</td></tr>`;
+        //Bisa di tambah untuk TAB yang lainnya
+        //=====================================
 
-        // Kirim request POST ke Apps Script untuk mengambil data admin/dashboard
+        
         const response = await fetch(API_URL, {
           method: 'POST',
-          body: JSON.stringify({action: 'getAdminData'}), // Aksi ini harus sesuai dengan yang ada di doPost Apps Script Anda
+          body: JSON.stringify({action: 'getAdminData'}), 
           
           headers: {'Content-Type': 'text/plain;charset=utf-8',}});
           const result = await response.json();
@@ -1295,26 +1324,39 @@ async function submitCalonPegawai(event) {
             globalData.keluarga = result.data.keluarga; // Sangat penting untuk detail profil nanti
 
            if (result.data && result.data.calonPegawai) {renderTableCalonPegawai(result.data.calonPegawai);}
-           if (result.data && result.data.pegawai) {renderTablePegawaiAktif(result.data.pegawai);}
-       else if (tbodyPegawai) {tbodyPegawai.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Struktur data 'pegawai' tidak ditemukan.</td></tr>`;}
+           if (result.data && result.data.pegawai) {renderTablePegawaiAktif(result.data.pegawai); renderTableKelolaPegawai(result.data.pegawai);}
+          //Bisa di tambah untuk TAB yang lainnya
+          //=====================================
+
+
+      
        
-        //====================================================================================== 
-        //RUANG PENTING UNTUK TAB LAINNYA
-        // NB: Jika Anda punya fungsi render untuk data pegawai tetap atau infografis, 
-        // Anda bisa memanggilnya juga di sini, contoh:
-        // if (result.data.pegawaiTetap) { renderTablePegawaiTetap(result.data.pegawaiTetap); }
-        //=====================================================================================
+       else {
+        if (tbodyPegawai) tbodyPegawai.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Struktur data 'pegawai' tidak ditemukan.</td></tr>`;
+        if (tbodyKelola) tbodyKelola.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Struktur data 'pegawai' tidak ditemukan.</td></tr>`;
+        //Bisa di tambah untuk TAB yang lainnya
+        //=====================================
+      }
+
 
           
         } else {alert("Gagal mengambil data dari server: " + result.message);}
-  } catch (error) {console.error("Error loadAdminData:", error);
+  
+      } catch (error) {console.error("Error loadAdminData:", error);
     if (tbodyPegawai) tbodyPegawai.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500"><i class="fa fa-exclamation-triangle mr-2"></i>Gagal memuat data pegawai.</td></tr>`;
+    if (tbodyKelola) tbodyKelola.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500"><i class="fa fa-exclamation-triangle mr-2"></i>Gagal memuat data kelola.</td></tr>`;
+    //Bisa di tambah untuk TAB yang lainnya
+    //=====================================
+
   }
 }
 
-// =========================================================================
-// REPLIKASI 1: FUNGSI UNTUK MENAMPILKAN DATA PEGAWAI AKTIF KE TABEL
-// =========================================================================
+    
+
+
+// ============================================================================
+// REPLIKASI 1: FUNGSI UNTUK MENAMPILKAN DATA PEGAWAI AKTIF KE TABEL OLEH ADMIN
+// ============================================================================
 function renderTablePegawaiAktif(dataPegawai) {
   const tbody = document.getElementById("table-pegawai-rows");
   tbody.innerHTML = "";
@@ -1330,30 +1372,309 @@ function renderTablePegawaiAktif(dataPegawai) {
     
     const tr = document.createElement("tr");
     tr.className = "border-b hover:bg-slate-50 transition";
-    
-    // Susunan kolom: Aksi, Foto, NIPY, Nama Pegawai, JK, Unit Kerja, Jabatan
+       
     tr.innerHTML = `
-      <td class="p-4 text-center">
-        <button onclick="lihatDetailPegawai('${pegawai["USERNAME"]}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-semibold transition flex items-center mx-auto shadow-sm">
-          <i class="fa fa-eye mr-1"></i> Lihat Detail
-        </button>
+            <td class="p-4"><img src="${fotoUrl}" alt="Foto" class="w-10 h-10 object-cover rounded-full border"></td>
+            <td class="p-4 font-semibold text-slate-700">${pegawai["NIPY"] || '-'}</td>
+            <td class="p-4 font-semibold text-slate-800">${pegawai["NAMA PEGAWAI"]}</td>
+            <td class="p-4 text-slate-600">${pegawai["JK"] || '-'}</td>
+            <td class="p-4 text-slate-600">${pegawai["UNIT KERJA"] || '-'}</td>
+            <td class="p-4 text-slate-600">${pegawai["JABATAN"] || '-'}</td>
+            <td class="p-4">
+              <div class="flex items-center justify-center space-x-2">
+                <button onclick="lihatDetailPegawai('${pegawai["USERNAME"]}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-xs font-semibold transition flex items-center mx-auto shadow-sm">
+                  <i class="fa fa-eye mr-1"></i>Lihat Detail
+                </button>
+              </div>
       </td>
-      <td class="p-4 text-center">
-        <img src="${fotoUrl}" alt="Foto" class="w-10 h-10 object-cover rounded-full border mx-auto">
-      </td>
-      <td class="p-4 text-center font-semibold text-slate-700">${pegawai["NIPY"] || '-'}</td>
-      <td class="p-4 font-semibold text-slate-800">${pegawai["NAMA PEGAWAI"]}</td>
-      <td class="p-4 text-center text-slate-600">${pegawai["JK"] || '-'}</td>
-      <td class="p-4 text-center text-slate-600">${pegawai["UNIT KERJA"] || '-'}</td>
-      <td class="p-4 text-center text-slate-600">${pegawai["JABATAN"] || '-'}</td>
     `;
     tbody.appendChild(tr);
   });
 }
 
-// =========================================================================
-// REPLIKASI 2: FUNGSI TOMBOL LIHAT DETAIL PEGAWAI AKTIF (+ KELUARGA)
-// =========================================================================
+
+// FUNGSI UNTUK MENAMPILKAN DATA KE TABEL KELOLA PEGAWAI
+//======================================================
+//======================================================
+function renderTableKelolaPegawai(dataPegawai) {
+  const tbody = document.getElementById("table-kelola-rows");
+  tbody.innerHTML = "";
+
+  if (!dataPegawai || dataPegawai.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Tidak ada data pegawai untuk dikelola.</td></tr>`;
+    return;
+  }
+
+  dataPegawai.forEach(pegawai => {
+    const fotoUrl = pegawai["URL FOTO"] || "https://via.placeholder.com/150/1e40af/ffffff?text=FOTO";
+    
+    const tr = document.createElement("tr");
+    tr.className = "border-b hover:bg-slate-50 transition";
+       
+    tr.innerHTML = `
+      <td class="p-4"><img src="${fotoUrl}" alt="Foto" class="w-10 h-10 object-cover rounded-full border"></td>
+      <td class="p-4 font-semibold text-slate-700">${pegawai["NIPY"] || '-'}</td>
+      <td class="p-4 font-semibold text-slate-800">${pegawai["NAMA PEGAWAI"]}</td>
+      <td class="p-4 text-slate-600">${pegawai["JK"] || '-'}</td>
+      <td class="p-4 text-slate-600">${pegawai["UNIT KERJA"] || '-'}</td>
+      <td class="p-4 text-slate-600">${pegawai["JABATAN"] || '-'}</td>
+      <td class="p-4">
+        <div class="flex items-center justify-center space-x-2">
+          <button onclick="bukaModalEditPegawai('${pegawai["USERNAME"]}')" class="px-2.5 py-1.5 bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-lg text-xs font-semibold transition flex items-center shadow-sm"><i class="fa fa-edit mr-1"></i> Edit</button>
+          <button onclick="bukaModalMutasi('${pegawai["USERNAME"]}', 'Keluar')" class="px-2.5 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-semibold transition flex items-center shadow-sm"><i class="fa fa-sign-out-alt mr-1"></i> Keluar</button>
+          <button onclick="bukaModalMutasi('${pegawai["USERNAME"]}', 'Pensiun')" class="px-2.5 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg text-xs font-semibold transition flex items-center shadow-sm"><i class="fa fa-user-clock mr-1"></i> Pensiun</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+
+//EDIT PEGAWAI OLEH ADMIN MELALUI TAB KELOLA PEGAWAI
+//========================================================
+//========================================================
+
+function bukaModalEditPegawai(username) {
+  // Cari data pegawai berdasarkan USERNAME di globalData
+  const pegawai = globalData.pegawai.find(p => p["USERNAME"] === username);
+  
+  if (!pegawai) {
+    alert("Data pegawai tidak ditemukan!");
+    return;
+  }
+
+  // A. Isi Komponen Foto
+  const fotoUrl = pegawai["URL FOTO"] || "https://via.placeholder.com/150";
+  document.getElementById("e_foto").src = fotoUrl;
+  document.getElementById("e_url_foto").value = fotoUrl;
+
+  //Data khusus terkait tanggal  
+  if (pegawai["TANGGAL LAHIR"]) {const [d, m, y]  = pegawai["TANGGAL LAHIR"].split("-");
+  document.getElementById("e_tgl_lahir").value = `${y}-${m}-${d}`;}
+  if (pegawai["MULAI KERJA"]) {const [d, m, y]  = pegawai["MULAI KERJA"].split("-");
+  document.getElementById("e_mulai_kerja").value = `${y}-${m}-${d}`;}
+  if (pegawai["TMT PANGKAT"]) {const [d, m, y]  = pegawai["TMT PANGKAT"].split("-");
+  document.getElementById("e_tmt_pangkat").value = `${y}-${m}-${d}`;}
+  if (pegawai["BERKALA TERAKHIR"]) {const [d, m, y]  = pegawai["BERKALA TERAKHIR"].split("-");
+  document.getElementById("e_berkala_terakhir").value = `${y}-${m}-${d}`;
+  
+  // B. Kategori 1: Data Diri
+  document.getElementById("e_nama").value = pegawai["NAMA PEGAWAI"] || "";
+  document.getElementById("e_tempat_lahir").value = pegawai["TEMPAT LAHIR"] || "";
+  document.getElementById("e_jk").value = pegawai["JK"] || "";
+  document.getElementById("e_agama").value = pegawai["AGAMA"] || "";
+  document.getElementById("e_nohp").value = pegawai["NO HP / WA"] || pegawai["NO HP"] || "";
+  document.getElementById("e_alamat").value = pegawai["ALAMAT DOMISILI"] || pegawai["ALAMAT"] || "";
+
+  // C. Kategori 2: Data Kepegawaian
+  document.getElementById("e_nipy").value = pegawai["NIPY"] || "";
+  document.getElementById("e_jabatan").value = pegawai["JABATAN"] || "";
+  document.getElementById("e_pekerjaan").value = pegawai["PEKERJAAN"] || "";
+  document.getElementById("e_unit").value = pegawai["UNIT KERJA"] || "";
+  document.getElementById("e_status").value = pegawai["STATUS"] || "";
+  document.getElementById("e_pangkat").value = pegawai["PANGKAT"] || "";
+  
+  
+  // D. Kategori 3: Pendidikan
+  document.getElementById("e_pendidikan").value = pegawai["PENDIDIKAN"] || "";
+  document.getElementById("e_jurusan").value = pegawai["JURUSAN"] || "";
+  document.getElementById("e_nuptk").value = pegawai["NUPTK"] || "";
+  document.getElementById("e_no_sertifikasi").value = pegawai["NO SERTIFIKASI"] || "";
+  document.getElementById("e_tahun_sertifikasi").value = pegawai["TAHUN SERTIFIKASI"] || "";
+
+  // =========================================================================
+  // FIX KATEGORI 4: STATUS & JML ANAK DARI SHEET PEGAWAI, RINCIAN DARI SHEET KELUARGA
+  // =========================================================================
+  
+  // 1. Ambil Status & Jumlah Anak dari objek 'pegawai' (karena ada di Sheet Pegawai)
+  document.getElementById("e_ktk").value = pegawai["K/TK"] || "";
+  document.getElementById("e_jml_anak").value = pegawai["JML ANAK"] || 0;
+
+  // 2. Cari rincian nama pasangan & anak di objek 'keluarga' berdasarkan Nama Pegawai
+  const namaPegawai = pegawai["NAMA PEGAWAI"]; 
+  const keluarga = globalData.keluarga 
+    ? globalData.keluarga.find(k => (k["NAMA PEGAWAI"] || k["NAMA"]) === namaPegawai) 
+    : null;
+
+
+    if (keluarga["TANGGAL LAHIR PASANGAN"]) {const [d, m, y]  = keluarga["TANGGAL LAHIR PASANGAN"].split("-");
+    document.getElementById("e_tgl_lahir_pasangan").value = `${y}-${m}-${d}`;}
+    if (keluarga["TANGGAL LAHIR ANAK KESATU"]) {const [d, m, y]  = keluarga["TANGGAL LAHIR ANAK KESATU"].split("-");
+    document.getElementById("e_tgl_lahir_anak1").value = `${y}-${m}-${d}`;}
+    if (keluarga["TANGGAL LAHIR ANAK KEDUA"]) {const [d, m, y]  = keluarga["TANGGAL LAHIR ANAK KEDUA"].split("-");
+    document.getElementById("e_tgl_lahir_anak2").value = `${y}-${m}-${d}`;}
+    if (keluarga["TANGGAL LAHIR ANAK KETIGA"]) {const [d, m, y]  = keluarga["TANGGAL LAHIR ANAK KETIGA"].split("-");
+    document.getElementById("e_tgl_lahir_anak3").value = `${y}-${m}-${d}`;}
+    if (keluarga["TANGGAL LAHIR ANAK KEEMPAT"]) {const [d, m, y]  = keluarga["TANGGAL LAHIR ANAK KEEMPAT"].split("-");
+    document.getElementById("e_tgl_lahir_anak4").value = `${y}-${m}-${d}`;}    
+    
+    if (keluarga) {
+    document.getElementById("e_nama_pasangan").value = keluarga["NAMA PASANGAN"] || "";
+    document.getElementById("e_nama_anak1").value = keluarga["NAMA ANAK KESATU"] || "";
+    document.getElementById("e_nama_anak2").value = keluarga["NAMA ANAK KEDUA"] || "";
+    document.getElementById("e_nama_anak3").value = keluarga["NAMA ANAK KETIGA"] || "";
+    document.getElementById("e_nama_anak4").value = keluarga["NAMA ANAK KEEMPAT"] || "";
+    document.getElementById("e_usia_pasangan").value = keluarga["USIA PASANGAN"] || "-";      
+    document.getElementById("e_usia_anak1").value = keluarga["USIA ANAK KESATU"] || "-";
+    document.getElementById("e_usia_anak2").value = keluarga["USIA ANAK KEDUA"] || "-";
+    document.getElementById("e_usia_anak3").value = keluarga["USIA ANAK KETIGA"] || "-";
+    document.getElementById("e_usia_anak4").value = keluarga["USIA ANAK KEEMPAT"] || "-";
+  } else {
+    // Jika rincian di Sheet Keluarga tidak ditemukan, yang dikosongkan HANYA kolom rincian saja.
+    // Kolom Status Pernikahan dan Jumlah Anak di atas TIDAK BOLEH dikosongkan karena datanya valid dari Sheet Pegawai.
+    document.getElementById("e_nama_pasangan").value = "";
+    document.getElementById("e_tgl_lahir_pasangan").value = "";
+    document.getElementById("e_usia_pasangan").value = "-";
+    for (let i = 1; i <= 4; i++) {
+      document.getElementById(`e_nama_anak${i}`).value = "";
+      document.getElementById(`e_tgl_lahir_anak${i}`).value = "";
+      document.getElementById(`e_usia_anak${i}`).value = "-";
+    }
+  } 
+  // F. Kategori 5: Informasi Akun Sistem
+  document.getElementById("e_username").value = pegawai["USERNAME"] || "";
+  document.getElementById("e_password").value = ""; // Kosongkan demi privasi
+  document.getElementById("modal-edit-pegawai").classList.remove("hidden");
+}
+}
+
+
+function tutupModalEditPegawai() {
+  document.getElementById("modal-edit-pegawai").classList.add("hidden");
+  document.getElementById("form-edit-pegawai-admin").reset();
+}
+
+
+
+//SIMPAN HASIL EDIT PEGAWAI OLEH ADMIN MELALUI TAB KELOLA PEGAWAI
+//========================================================
+//========================================================
+async function simpanEditPegawaiAdmin(event) {
+  event.preventDefault();
+
+  document.body.style.cursor = 'wait';
+  const btnSimpan = event.submitter;
+  const originalBtnText = btnSimpan.innerHTML;
+  btnSimpan.innerHTML = `<i class="fa fa-spinner fa-spin mr-2"></i>Menyimpan...`;
+  btnSimpan.disabled = true;
+
+  // Fungsi pembantu format tanggal ke format DD-MM-YYYY (Sesuai sistem Anda)
+  const formatToSheetDate = (htmlDate) => {
+    if (!htmlDate) return "";
+    const [y, m, d] = htmlDate.split("-");
+    return `${d}-${m}-${y}`;
+  };
+
+  try {
+    const namaAdminLogin = sessionStorage.getItem("namaAdminAktif") || "Unknown";    
+    // PROSES CEK APAKAH ADMIN MENGGANTI FOTO PROFILE PEGAWAI
+    const fileInput = document.getElementById("e_foto_file");
+    let fotoBlobData = { base64: "", name: "", type: "" };
+
+    if (fileInput && fileInput.files.length > 0) {
+      const fileTerpilih = fileInput.files[0];
+      
+      if (fileTerpilih.size > 2 * 1024 * 1024) {
+        alert("Gagal: Ukuran foto baru terlalu besar! Maksimal 2MB.");
+        return; 
+      }
+      fotoBlobData = await fileToBase64(fileTerpilih); // Memanfaatkan fungsi fileToBase64 yang sudah ada
+    }
+    
+    // MENYUSUN PAYLOAD (Struktur disamakan dengan sistem pegawai agar backend GAS tinggal membaca)
+    const payloadData = {
+      "NIPY": document.getElementById("e_nipy").value,
+      "USERNAME": document.getElementById("e_username").value,          
+      "NAMA PEGAWAI": document.getElementById("e_nama").value, // Tambahan agar admin bisa edit nama jika typo
+      "TEMPAT LAHIR": document.getElementById("e_tempat_lahir").value,
+      "TANGGAL LAHIR": formatToSheetDate(document.getElementById("e_tgl_lahir").value),
+      "JK": document.getElementById("e_jk").value,
+      "MULAI KERJA": formatToSheetDate(document.getElementById("e_mulai_kerja").value),
+      "UNIT KERJA": document.getElementById("e_unit").value,
+      "STATUS": document.getElementById("e_status").value,
+      "PEKERJAAN": document.getElementById("e_pekerjaan").value,
+      "JABATAN": document.getElementById("e_jabatan").value,
+      "PANGKAT": document.getElementById("e_pangkat").value,
+      "TMT PANGKAT": formatToSheetDate(document.getElementById("e_tmt_pangkat").value),
+      "BERKALA TERAKHIR": formatToSheetDate(document.getElementById("e_berkala_terakhir").value),
+
+      "AGAMA": document.getElementById("e_agama").value,
+      "NO HP": document.getElementById("e_nohp").value,
+      "ALAMAT": document.getElementById("e_alamat").value,
+      "PENDIDIKAN": document.getElementById("e_pendidikan").value,
+      "JURUSAN": document.getElementById("e_jurusan").value,
+      "NUPTK": document.getElementById("e_nuptk").value,
+      "NO SERTIFIKASI": document.getElementById("e_no_sertifikasi").value,
+      "TAHUN SERTIFIKASI": document.getElementById("e_tahun_sertifikasi").value,
+      "K/TK": document.getElementById("e_ktk").value,
+      "JML ANAK": document.getElementById("e_jml_anak").value,
+      "PASSWORD": document.getElementById("e_password").value, // Hanya terisi jika admin mengubah kata sandi
+      "URL FOTO": document.getElementById("e_url_foto").value, // Mengirim URL lama sebagai fallback
+      "DIUPDATE OLEH": "Admin - " + namaAdminLogin,
+      "FOTO_BLOB": fotoBlobData, 
+      
+      // OTOMATISASI CETAK WAKTU UPDATE OLEH ADMIN
+      "UPDATE TERAKHIR": new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" }),
+      
+      "DATA_KELUARGA": {
+        "NAMA PEGAWAI": document.getElementById("e_nama").value,
+        "NAMA PASANGAN": document.getElementById("e_nama_pasangan").value,
+        "TANGGAL LAHIR PASANGAN": formatToSheetDate(document.getElementById("e_tgl_lahir_pasangan").value),
+        "NAMA ANAK KESATU": document.getElementById("e_nama_anak1").value,
+        "TANGGAL LAHIR ANAK KESATU": formatToSheetDate(document.getElementById("e_tgl_lahir_anak1").value),
+        "NAMA ANAK KEDUA": document.getElementById("e_nama_anak2").value,
+        "TANGGAL LAHIR ANAK KEDUA": formatToSheetDate(document.getElementById("e_tgl_lahir_anak2").value),
+        "NAMA ANAK KETIGA": document.getElementById("e_nama_anak3").value,
+        "TANGGAL LAHIR ANAK KETIGA": formatToSheetDate(document.getElementById("e_tgl_lahir_anak3").value),
+        "NAMA ANAK KEEMPAT": document.getElementById("e_nama_anak4").value,
+        "TANGGAL LAHIR ANAK KEEMPAT": formatToSheetDate(document.getElementById("e_tgl_lahir_anak4").value)
+      }
+    };
+
+    // Eksekusi kirim data menggunakan fetch (Sama persis dengan jalur Pegawai)
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'updatePegawai',
+        payload: payloadData
+      }),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+    });
+
+    const result = await response.json();
+
+    if (result.status === "SUCCESS") {
+      alert("Sukses! Data pegawai dan rincian keluarga berhasil diperbarui oleh Admin.");
+      
+      if(fileInput) fileInput.value = ""; // Reset input file pencarian foto
+      
+      tutupModalEditPegawai(); // Tutup modal edit admin
+      
+      // PANGKATKAN KODE REFRESH TABEL DASHBOARD ADMIN ANDA DI SINI
+      // Contoh: jalankanFungsiMuatUlangTabelAdmin();
+      if (typeof muatUlangDataTabelAdmin === "function") {
+        muatUlangDataTabelAdmin();
+      }
+    } else {
+      alert("Gagal menyimpan perubahan: " + result.message);
+    }
+
+  } catch (error) {
+    console.error("Error simpanEditPegawaiAdmin:", error);
+    alert("Terjadi kesalahan sistem saat mencoba menyimpan data ke server.");
+  } finally {
+    document.body.style.cursor = 'default';
+    btnSimpan.innerHTML = originalBtnText;
+    btnSimpan.disabled = false;
+  }
+}
+
+
+
+// =============================================================================
+// REPLIKASI 2: FUNGSI TOMBOL LIHAT DETAIL PEGAWAI AKTIF (+ KELUARGA) OLEH ADMIN
+// =============================================================================
 function lihatDetailPegawai(username) {
   const pegawai = globalData.pegawai.find(p => p.USERNAME === username);
   if (!pegawai) return;
@@ -1462,6 +1783,116 @@ function closeModalDetailPegawai() {
 }
 
 
+//FUNGSI FORM MUTASI PEGAWAI KELUAR/PENSIUN
+//=================================================================
+//=================================================================
+function bukaModalMutasi(username, defaultStatus) {
+  // Cari data pegawai berdasarkan username dari globalData yang sudah ada
+  const pegawai = globalData.pegawai ? globalData.pegawai.find(p => p.USERNAME === username) : null;
+  
+  if (!pegawai) {
+    alert("Data pegawai tidak ditemukan!");
+    return;
+  }
+
+  // Isi data ringkas ke form modal
+  document.getElementById("m_text_username").innerText = pegawai["USERNAME"] || "-";
+  document.getElementById("m_text_nipy").innerText = pegawai["NIPY"] || "-";
+  document.getElementById("m_text_nama").innerText = pegawai["NAMA PEGAWAI"] || "-";
+  document.getElementById("m_text_unit").innerText = pegawai["UNIT KERJA"] || "-";
+
+  // Set hidden values untuk payload kirim data nanti
+  document.getElementById("m_username").value = pegawai["USERNAME"];
+  document.getElementById("m_nama").value = pegawai["NAMA PEGAWAI"];
+
+  // Set pilihan status otomatis berdasarkan tombol mana yang diklik awal (Keluar / Pensiun)
+  document.getElementById("m_status_baru").value = defaultStatus || "";
+  
+  // Set default tanggal hari ini
+  document.getElementById("m_tgl_efektif").value = new Date().toISOString().split('T')[0];
+  document.getElementById("m_keterangan").value = "";
+
+  // Tampilkan Modal
+  document.getElementById("modal-mutasi-pegawai").classList.remove("hidden");
+}
+
+// 2. Fungsi Menutup Modal Mutasi
+window.tutupModalMutasi = function() {
+  const modal = document.getElementById("modal-mutasi-pegawai");
+  const form = document.getElementById("form-mutasi-pegawai");
+  if (modal) modal.classList.add("hidden");
+  if (form) form.reset();
+};
+
+
+
+
+//FUNGSI SIMPAN DATA PEGAWAI KELUAR/PENSIUN KE SHEET KELUAR/PENSIUN
+//=================================================================
+//=================================================================
+async function simpanMutasiPegawai(event) {
+  event.preventDefault();
+
+  const namaPegawai = document.getElementById("m_nama").value;
+  const statusBaru = document.getElementById("m_status_baru").value;
+  const tglEfektif = document.getElementById("m_tgl_efektif").value;
+  const keterangan = document.getElementById("m_keterangan").value;
+  const namaAdminLogin = sessionStorage.getItem("namaAdminAktif") || "Unknown";
+
+  // Format tanggal ke DD-MM-YYYY sesuai standard spreadsheet Anda
+  const [y, m, d] = tglEfektif.split("-");
+  const tglFormatted = `${d}-${m}-${y}`;
+
+  // Konfirmasi akhir yang humanis
+  const yakin = confirm(`PENTING!\nApakah Anda yakin ingin memproses pegawai bernama "${namaPegawai}" dengan status baru: [${statusBaru.toUpperCase()}]? Data pegawai akan dipindahkan.`);
+  if (!yakin) return;
+
+  document.body.style.cursor = 'wait';
+  const btnSubmit = event.submitter;
+  const textAsli = btnSubmit.innerHTML;
+  btnSubmit.disabled = true;
+  btnSubmit.innerHTML = `<i class="fa fa-spinner fa-spin mr-2"></i>Memproses...`;
+
+  const payloadData = {
+    "USERNAME": document.getElementById("m_username").value,
+    "NAMA PEGAWAI": namaPegawai,
+    "STATUS MUTASI": statusBaru, // "Keluar" atau "Pensiun"
+    "TANGGAL EFEKTIF": tglFormatted,
+    "KETERANGAN": keterangan,
+    "DIPROSES OLEH": "Admin - " + namaAdminLogin,
+    "WAKTU PROSES": new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })
+  };
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'mutasiPegawai', // Aksi baru untuk dibaca di doGet/doPost .gs
+        payload: payloadData
+      }),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+    });
+
+    const result = await response.json();
+
+    if (result.status === "SUCCESS") {
+      alert(`Sukses! Pegawai berhasil dimutasi ke Sheet ${statusBaru}.`);
+      tutupModalMutasi();
+      if (typeof muatUlangDataTabelAdmin === "function") muatUlangDataTabelAdmin(); // Refresh data dashboard
+    } else {
+      alert("Gagal memproses mutasi: " + result.message);
+    }
+  } catch (error) {
+    console.error("Error mutasiPegawai:", error);
+    alert("Terjadi kesalahan sistem saat mencoba menghubungi server.");
+  } finally {
+    document.body.style.cursor = 'default';
+    btnSubmit.innerHTML = textAsli;
+    btnSubmit.disabled = false;
+  }
+}
+
+
 
 
 
@@ -1470,6 +1901,167 @@ function closeModalDetailPegawai() {
 
 
   </script>
+
+<div id="modal-edit-pegawai" class="fixed inset-0 z-50 hidden bg-slate-900 bg-opacity-50 overflow-y-auto">
+  <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true" onclick="tutupModalEditPegawai()"></div>
+    
+    <div class="inline-block align-bottom bg-slate-50 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl w-full border">
+      
+      <div class="bg-white px-6 py-4 border-b flex justify-between items-center sticky top-0 z-10">
+        <h3 class="text-xl leading-6 font-bold text-slate-800" id="modal-edit-title">Edit Data Pegawai</h3>
+        <button onclick="tutupModalEditPegawai()" class="text-slate-400 hover:text-slate-600 focus:outline-none transition">
+          <i class="fa fa-times text-xl"></i>
+        </button>
+      </div>
+
+      <div class="px-6 py-4 max-h-[75vh] overflow-y-auto">
+        <form id="form-edit-pegawai-admin" onsubmit="simpanEditPegawaiAdmin(event)" class="space-y-6">
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-user text-blue-600 mr-2"></i> Kategori 1: Data Diri</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              <div class="md:col-span-1 flex flex-col items-center justify-center p-4 bg-slate-50 rounded-xl border border-dashed">
+                <img id="e_foto" src="https://via.placeholder.com/150" class="w-32 h-32 object-cover rounded-full border shadow-sm mb-2">
+                <input type="hidden" id="e_url_foto">
+                <label class="block text-[11px] font-semibold text-slate-500 mb-1 text-center">Ganti Pas Foto Profil</label>
+                <input type="file" id="e_foto_file" accept="image/*" class="w-full text-xs bg-white p-1.5 border rounded outline-none file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blue-50 file:text-blue-700">
+                <p class="text-[9px] text-slate-400 mt-1 text-center">Format: JPG/PNG, Maksimal 2MB.</p>
+              </div>
+              
+              <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div><label class="block text-xs font-semibold text-slate-500 mb-1">Nama Lengkap</label><input type="text" id="e_nama" required class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+                <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tempat Lahir</label><input type="text" id="e_tempat_lahir" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+                <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tanggal Lahir</label><input type="date" id="e_tgl_lahir" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+                <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jenis Kelamin</label><select id="e_jk" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"><option value="">-- Pilih --</option><option value="L">Laki-Laki</option><option value="P">Perempuan</option></select></div>
+                <div><label class="block text-xs font-semibold text-slate-500 mb-1">Agama</label><input type="text" id="e_agama" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+                <div><label class="block text-xs font-semibold text-slate-500 mb-1">No HP / WA</label><input type="text" id="e_nohp" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+                <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-500 mb-1">Alamat Domisili</label><textarea id="e_alamat" rows="2" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></textarea></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-briefcase text-blue-600 mr-2"></i> Kategori 2: Data Kepegawaian</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">NIPY</label><input type="text" id="e_nipy" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium" placeholder="Masukkan NIPY..."></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jabatan Resmi</label><input type="text" id="e_jabatan" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pekerjaan</label><input type="text" id="e_pekerjaan" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Unit Kerja</label><input type="text" id="e_unit" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Status Kepegawaian</label><input type="text" id="e_status" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Mulai Kerja</label><input type="date" id="e_mulai_kerja" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pangkat / Golongan</label><input type="text" id="e_pangkat" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">TMT Pangkat</label><input type="date" id="e_tmt_pangkat" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Berkala Terakhir</label><input type="date" id="e_berkala_terakhir" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-graduation-cap text-blue-600 mr-2"></i> Kategori 3: Pendidikan</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Pendidikan Terakhir</label><input type="text" id="e_pendidikan" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Jurusan / Prodi</label><input type="text" id="e_jurusan" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">NUPTK</label><input type="text" id="e_nuptk" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">No Sertifikasi Guru</label><input type="text" id="e_no_sertifikasi" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+              <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tahun Sertifikasi</label><input type="text" id="e_tahun_sertifikasi" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+  <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2">
+    <i class="fa fa-heart text-blue-600 mr-2"></i> Kategori 4: Data Anggota Keluarga
+  </h3>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+    <div>
+      <label class="block text-xs font-semibold text-slate-500 mb-1">Status Pernikahan (K/TK)</label>
+      <select id="e_ktk" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+        <option value="">-- Pilih --</option>
+        <option value="K">K (Kawin)</option>
+        <option value="TK">TK (Tidak Kawin)</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-xs font-semibold text-slate-500 mb-1">Jumlah Anak</label>
+      <input type="number" id="e_jml_anak" min="0" max="4" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium">
+    </div>
+  </div>
+
+  <div class="p-4 bg-slate-50 rounded-xl border mb-6">
+    <h4 class="text-sm font-bold text-slate-600 mb-3 flex items-center"><i class="fa fa-user-friends mr-2 text-rose-500"></i> Data Suami / Istri</h4>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div><label class="block text-xs font-semibold text-slate-500 mb-1">Nama Suami / Istri</label><input type="text" id="e_nama_pasangan" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium" placeholder="-"></div>
+      <div><label class="block text-xs font-semibold text-slate-500 mb-1">Tanggal Lahir Pasangan</label><input type="date" id="e_tgl_lahir_pasangan" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"></div>
+      <div><label class="block text-xs font-semibold text-slate-500 mb-1">Usia Pasangan (Otomatis)</label><input type="text" id="e_usia_pasangan" readonly class="w-full p-2.5 border rounded-lg bg-slate-100 font-medium text-slate-500 outline-none text-sm cursor-not-allowed" placeholder="-"></div>
+    </div>
+  </div>
+
+  <div class="p-4 bg-slate-50 rounded-xl border">
+    <h4 class="text-sm font-bold text-slate-600 mb-3 flex items-center"><i class="fa fa-child mr-2 text-indigo-500"></i> Data Anak (Maksimal 4)</h4>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse text-sm">
+        <thead>
+          <tr class="border-b text-slate-500 uppercase text-xs font-bold bg-slate-100">
+            <th class="p-2 w-12">Anak</th>
+            <th class="p-2">Nama Anak</th>
+            <th class="p-2 w-24">Tanggal Lahir</th>
+            <th class="p-2 w-28">Usia</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y bg-white">
+          <tr>
+            <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-1</td>
+            <td class="p-2"><input type="text" id="e_nama_anak1" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="date" id="e_tgl_lahir_anak1" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="text" id="e_usia_anak1" readonly class="w-full p-2 bg-slate-100 border rounded-md text-sm text-slate-500 outline-none cursor-not-allowed" placeholder="-"></td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-2</td>
+            <td class="p-2"><input type="text" id="e_nama_anak2" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="date" id="e_tgl_lahir_anak2" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="text" id="e_usia_anak2" readonly class="w-full p-2 bg-slate-100 border rounded-md text-sm text-slate-500 outline-none cursor-not-allowed" placeholder="-"></td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-3</td>
+            <td class="p-2"><input type="text" id="e_nama_anak3" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="date" id="e_tgl_lahir_anak3" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="text" id="e_usia_anak3" readonly class="w-full p-2 bg-slate-100 border rounded-md text-sm text-slate-500 outline-none cursor-not-allowed" placeholder="-"></td>
+          </tr>
+          <tr>
+            <td class="p-2 font-bold text-slate-600 bg-slate-50">Ke-4</td>
+            <td class="p-2"><input type="text" id="e_nama_anak4" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="date" id="e_tgl_lahir_anak4" class="w-full p-2 border rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-500"></td>
+            <td class="p-2"><input type="text" id="e_usia_anak4" readonly class="w-full p-2 bg-slate-100 border rounded-md text-sm text-slate-500 outline-none cursor-not-allowed" placeholder="-"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+  <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center border-b pb-2"><i class="fa fa-key text-blue-600 mr-2"></i> Kategori 5: Informasi Akun Sistem</h3>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div><label class="block text-xs font-semibold text-slate-500 mb-1">Username Sistem</label><input type="text" id="e_username" readonly class="w-full p-2.5 border rounded-lg bg-slate-100 outline-none text-sm font-medium text-slate-500 cursor-not-allowed"></div>
+    <div><label class="block text-xs font-semibold text-slate-500 mb-1">Ubah Kata Sandi / Password</label><input type="password" id="e_password" class="w-full p-2.5 border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium" placeholder="Masukkan password baru jika ingin diganti..."></div>
+  </div>
+</div>
+        </form>
+      </div>
+
+      <div class="bg-slate-50 px-6 py-4 border-t flex justify-end space-x-3 rounded-b-xl sticky bottom-0 z-10">
+        <button type="button" onclick="tutupModalEditPegawai()" class="px-5 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 rounded-lg text-sm text-slate-700 font-medium transition shadow-sm">Batal</button>
+        <button type="submit" form="form-edit-pegawai-admin" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition shadow-sm flex items-center">
+          <i class="fa fa-save mr-2"></i> Simpan Perubahan
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 <div id="modal-detail-pegawai" class="fixed inset-0 bg-slate-950 bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
   <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto flex flex-col">
     <div class="p-4 border-b flex items-center justify-between bg-slate-50 rounded-t-2xl">
@@ -1500,6 +2092,60 @@ function closeModalDetailPegawai() {
       </div>
     </div>
   </div>
+
+
+
+<div id="modal-mutasi-pegawai" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+  <div class="relative top-20 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
+    <div class="flex justify-between items-center border-b pb-3 mb-4">
+      <h3 class="text-xl font-semibold text-gray-900"><i class="fa fa-exchange-alt mr-2 text-orange-500"></i>Proses Mutasi Pegawai</h3>
+      <button type="button" onclick="tutupModalMutasi()" class="text-gray-400 hover:text-gray-600 font-bold text-2xl">&times;</button>
+    </div>
+
+    <form id="form-mutasi-pegawai" onsubmit="simpanMutasiPegawai(event)">
+      
+      <div class="bg-gray-50 p-3 rounded mb-4 text-sm border">
+        <p class="font-semibold text-gray-700 mb-2">Detil Pegawai:</p>
+        <div class="grid grid-cols-3 gap-1">
+          <span class="text-gray-500">Username</span><span class="col-span-2 font-medium">: <span id="m_text_username">-</span></span>
+          <span class="text-gray-500">NIPY</span><span class="col-span-2 font-medium">: <span id="m_text_nipy">-</span></span>
+          <span class="text-gray-500">Nama</span><span class="col-span-2 font-medium">: <span id="m_text_nama">-</span></span>
+          <span class="text-gray-500">Unit Kerja</span><span class="col-span-2 font-medium">: <span id="m_text_unit">-</span></span>
+        </div>
+        <input type="hidden" id="m_username">
+        <input type="hidden" id="m_nama">
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Status Baru <span class="text-red-500">*</span></label>
+        <select id="m_status_baru" class="w-full p-2 border rounded focus:ring focus:ring-orange-200" required>
+          <option value="">-- Pilih Jenis Penonaktifan --</option>
+          <option value="Keluar">Keluar (Resign / Mengundurkan Diri / Dihentikan)</option>
+          <option value="Pensiun">Pensiun</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Efektif <span class="text-red-500">*</span></label>
+        <input type="date" id="m_tgl_efektif" class="w-full p-2 border rounded focus:ring focus:ring-orange-200" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Keterangan / Alasan</label>
+        <textarea id="m_keterangan" rows="3" placeholder="Contoh: Memasuki masa pensiun / Pindah tugas ke instansi lain..." class="w-full p-2 border rounded focus:ring focus:ring-orange-200"></textarea>
+      </div>
+
+      <div class="border-t pt-4 flex justify-end gap-2">
+        <button type="button" onclick="tutupModalMutasi()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Batal</button>
+        <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 font-semibold shadow">
+          Proses Sekarang
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 
 </body>
 </html>
